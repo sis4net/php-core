@@ -1,5 +1,3 @@
-LICENSE
-README.md
 deps
 deps.lock
 app/cache/*
