@@ -1,0 +1,18 @@
+#RewriteBase /
+RewriteEngine on
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !^[^/]+\.css$
+RewriteCond %{REQUEST_URI} !^[^/]+\.js$
+
+# Todas las Rutas van como param rt
+#RewriteRule ^(.*)$ index.php?rt=$1 [L,QSA]
+RewriteRule ^([a-z][^0-9]*)$ index.php?rt=$1 [L,QSA]
+
+# Movemos Css
+#RewriteRule ^(.[css|js])$ $1 [L,QSA]
+
+# Todos los numeros van como ID
+RewriteRule  ^([a-z][^0-9]*)([0-9]+)$ index.php?rt=$1&id=$2 [L,QSA]
+

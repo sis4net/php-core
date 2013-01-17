@@ -1,0 +1,299 @@
+/* HTML5 tags */
+header,section,footer,aside,nav,article,figure {
+	display: block;
+}
+
+header {
+	margin: 0 auto 2em auto;
+	padding: 0;
+}
+
+section #body{
+	width:952px;
+	margin:0 auto;
+}
+
+body {
+	font-size: 87.5%; /* Base font size: 14px */
+	font-family: 'Droid Sans', 'Trebuchet MS', Trebuchet, 'Lucida Sans Unicode',
+		'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+	line-height: 1.429;
+	margin: 0;
+	padding: 0;
+	text-align: left;
+}
+
+a {
+text-decoration: none;
+}
+
+li {
+	list-style: none;
+}
+
+/* CONTENIDO */
+
+#content {
+	margin: 20px 0;
+}
+
+#content form {
+
+}
+
+#body {
+	width: 960px;
+	margin: 20px auto;
+	background: #efefef;
+	border: 1px solid #afafaf;
+	padding: 20px 10px 100px;
+}
+
+#body h2 {
+	color: #C1022C;
+    font-size: 32px;
+    margin: 10px 0 0;
+}
+
+#homeLogout {
+	float: right;
+}
+
+#homeLogout a {
+	background: #555;
+	padding: 5px;
+	color: #fff;
+	text-decoration: none;
+	border: 1px solid #bfbfbf;
+}
+
+#homeLogout a:hover {
+	background: #C1022C;
+}
+
+/* MENU */
+
+ul#mainMenu {
+	border-bottom: 1px solid #999;
+	padding-bottom: 20px;
+}
+
+#mainMenu li, #adminMenu li {
+	display: inline;
+}
+
+#mainMenu li a, #adminMenu li a{
+	background: #C1022C;
+	padding: 5px;
+	color: #fff;
+	text-decoration: none;
+	border-radius: 5px;
+	margin-right: 5px;
+}
+
+.btnEditar {
+	background: #999;
+	padding: 3px;
+	color: #fff;
+	text-decoration: none;
+	border-radius: 5px;
+	margin-right: 5px;
+}
+
+#mainMenu li a:hover, #adminMenu li a:hover {
+background: #555;
+}
+
+.menu li:hover ul{
+        display:block;
+}
+.menu ul{
+	background: none repeat scroll 0 0 #C1022C;
+    border-top: 1px solid #FFFFFF;
+    display: none;
+    padding: 5px 0 10px;
+    position: absolute;
+    width: 160px;
+}
+
+.menu ul li, .menu ul li a{
+        margin:0;
+        padding:0;
+        width:200px;
+}
+.menu ul li a{
+        background:none;
+        height:25px;
+        line-height:2em;
+        margin:0 5px;
+        width:100%;
+        border-radius: none;
+}
+.menu ul li a:hover{
+        background:none;
+        color: #FFF; 
+}
+
+
+.menu li:hover a{
+        color:#35608B;
+}
+.menu li:hover li a{
+        color: #A3CADB; 
+}
+.menu li:hover li a:hover{
+        color: #FFF; 
+}
+
+.subMenu li {
+	display: block !important;
+	margin: 10px 0;
+}
+
+
+/* Headings */
+h2 {
+	font-size: 1.571em;
+	/*border-bottom: 1px dotted #B5B3A9;*/
+	color: #222;
+	font-weight: bold;
+	margin: 0 0 10px;
+	padding: 0 0 0 0
+} /* 22px */
+h3
+ {
+	background: none repeat scroll 0 0 #C1022C;
+    color: #FFFFFF;
+    font-size: 27px;
+    font-weight: normal;
+    margin: 0 0 20px;
+    padding: 5px 10px;}
+
+h4 {
+	font-size: 15px;
+	color: #666;
+}
+
+/* Anchors */
+a {
+	outline: 0;
+	cursor:pointer;
+}
+
+a img {
+	border: 0px;
+	text-decoration: none;
+}
+
+
+
+/* Lists */
+ul {
+	list-style: outside disc;
+	margin: 0;
+	padding: 0;
+}
+
+ol {
+	list-style: outside decimal;
+	margin: 1em 0 1.5em 1.5em;
+}
+
+dl {
+	margin: 0 0 1.0em 0;
+}
+
+dt {
+	display: block;
+	font-size: 14px;
+	font-family:'Droid Sans';
+	margin: 10px 0 1px;
+}
+
+dd {
+	margin-left: 0em;
+}
+
+/* Quotes */
+blockquote {
+	font-style: italic;
+}
+
+cite {
+	
+}
+
+q {
+	
+} /* Tables */
+table {
+	margin: .5em auto 1.5em auto;
+	width: 98%;
+} /* Thead */
+thead th {
+	padding: .5em .4em;
+	text-align: left;
+}
+
+thead td {
+	
+} /* Tbody */
+tbody td {
+	padding: .5em .4em;
+}
+
+tbody th {
+	
+}
+
+tbody .alt td {
+	
+}
+
+tbody .alt th {
+	
+} /* Tfoot */
+tfoot th {
+	
+}
+
+tfoot td {
+	
+}
+
+form {
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	/*background: #DDD;
+	margin: 0 0 20px;
+	padding: 10px;*/
+}
+
+input, textarea, keygen, select, button, isindex {
+	border: 1px solid #999;
+	padding:5px;
+	font-size: 14px;
+}
+
+button  {
+	background: #999;
+	border: 1px solid #888;
+	color: white;
+	cursor: pointer;
+	font-weight: bold;
+	margin: 10px 0 0 0;
+	text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25);
+	width: 100px;
+	-webkit-box-align: center;
+}
+
+button:hover{
+}
+
+#f1_upload_process{
+   z-index:100;
+   visibility:hidden;
+   position:absolute;
+   text-align:center;
+   width:400px;
+}
