@@ -61,7 +61,7 @@ class router {
 		/*** if the file is not there diaf ***/
 		if (is_readable($this->file) == false)
 		{
-			$this->file = $this->path.'/error404.php';
+			$this->file = __LIB_PATH .'/controller/error404Controller.php';
 			$this->controller = 'error404';
 		}
 
@@ -82,7 +82,7 @@ class router {
 			$action = $this->action;
 		}
 		/*** run the action ***/
-		$controller->$action();
+		$controller->$action($this->controller);
 	 }
 
 

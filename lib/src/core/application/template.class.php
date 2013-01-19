@@ -46,11 +46,11 @@ class Template {
 	 }
 
 
-	function show($name, $isModal) {
+	function show($controller, $name, $isModal) {
 		// Definimos el Container
 		$container = __SITE_PATH.'/views/container/container.php';
 		// Definimos la Pagina a Cargar
-		$path = __SITE_PATH . '/views' . '/' .  $name . '.php';
+		$path = __SITE_PATH . '/views/'. $controller . '/' .  $name . '.php';
 
 		if (file_exists($path) == false)
 		{

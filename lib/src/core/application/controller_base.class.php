@@ -36,7 +36,7 @@ abstract class BaseController implements Config {
 		$this->registry->template->url = $this->getUrl();
 	}
 
-	public function index() {
+	public function index($controllerName) {
 		$controller = false;
 		try {
 			// Seteamos Todas las COnfiguraciones Iniciales
@@ -75,7 +75,7 @@ abstract class BaseController implements Config {
 		}
 		
 		if (!$controller) {
-			$this->registry->template->show($action, $this->isModal());
+			$this->registry->template->show($controllerName, $action, $this->isModal());
 		} else {
 			// Ejecutamos el controller (controller->[name])
 			$host  = $_SERVER['HTTP_HOST'];

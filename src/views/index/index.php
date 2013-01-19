@@ -16,8 +16,6 @@
 		<dt></dt>
 		<dd>
 			<input type="button" id="pf_btn_accept" value="Login" />
-			<a href="<?php echo $site ?>user/register" >Registrarse</a>
-			<a href="<?php echo $site ?>user/forget" >¿ Olvido su Clave ?</a>
 		</dd>
 	</dl>
 
