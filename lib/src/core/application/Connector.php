@@ -1,5 +1,8 @@
 <?php
-include (__LIB_PATH . '/config/config.php');
+/**
+ * Classe encargada de generar la conexion a la BD
+ */
+include_once (__LIB_PATH . '/config/config.php');
 
 class Connector implements Config {
 	

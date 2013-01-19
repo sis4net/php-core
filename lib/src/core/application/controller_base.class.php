@@ -4,7 +4,9 @@
  * Classe que controla el Sitio
  *
  **/
-abstract class BaseController {
+include_once (__LIB_PATH . '/config/config.php');
+
+abstract class BaseController implements Config {
 
 	/*
 	 * @registry object
@@ -29,7 +31,7 @@ abstract class BaseController {
 		$this->setLang();
 		
 		// Site Name
-		$this->registry->template->site = "/web-kfc/";
+		$this->registry->template->site = self::site_url . "/";
 		
 		$this->registry->template->url = $this->getUrl();
 	}
@@ -98,7 +100,7 @@ abstract class BaseController {
 		$lang_file = 'lang.es.php';
 
 		
-		include_once __SITE_PATH . '/lang/'.$lang_file;
+		include_once __LIB_PATH . '/../lang/'.$lang_file;
 		
 		// setamos el Lang en la Pagina
 		//$this->lang = $lang;
