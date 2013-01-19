@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="Content-Type" content="text/html" />
 		<meta name="Description" content="<?php echo $lang['PAGE_NAME']; ?> - <?php echo $lang['PAGE_TITLE']; ?> : <?php if (isset($welcome)) { echo $welcome; } ?>" />
-		<meta name="keywords" content="pizas" />
+		<meta name="keywords" content="" />
 		<meta name="robots" content="index, follow, noarchive" />
 		<meta name="googlebot" content="noarchive" />	
 		<title><?php echo $lang['PAGE_NAME']; ?> - <?php echo $lang['PAGE_TITLE']; ?></title>
@@ -34,12 +34,8 @@
 	
 	<section id="body">
 
-		<header>
-			<div id="logo">
-				<a href="<?php echo $site; ?>index"><img src="<?php echo $site; ?>/images/logo.png" width="372" height="111" alt="KFC Club de Beneficios" /></a>
-			</div>
-			
-			<h2>KFC Delivery</h2>
+		<header>			
+			<h2><?php echo $lang['PAGE_NAME']; ?></h2>
 			<div id="homeLogout">
 				<a href="<?php echo $site; ?>index">Inicio</a>
 			<?php 
@@ -66,7 +62,7 @@
 		<br>
 		<footer>
 		  	<address>
-		  		<?php //echo $lang['FOOTER_SITE']; ?>
+		  		<?php echo $lang['FOOTER_SITE']; ?>
 		  	</address>
 		</footer>
 		

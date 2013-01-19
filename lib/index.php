@@ -5,7 +5,8 @@
 
  /*** define the site path ***/
  $site_path = realpath(dirname(__FILE__));
- define ('__SITE_PATH', $site_path . '/src');
+ define ('__LIB_PATH', $site_path . '/src/core/');
+ define ('__SITE_PATH', $site_path . '/../src/');
 
  /*** include the init.php file ***/
  include 'includes/init.php';
@@ -16,7 +17,7 @@
  $registry->router = new router($registry);
 
  /*** set the controller path ***/
- $registry->router->setPath (__SITE_PATH . '/controller');
+ $registry->router->setPath (__LIB_PATH . '/controller');
 
  /*** load up the template ***/
  $registry->template = new template($registry);

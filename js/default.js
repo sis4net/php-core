@@ -1,4 +1,4 @@
-var site = "/web-kfc/"
+var site = ""
 
 $(document).ready(function(){
 	

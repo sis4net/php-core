@@ -1,5 +1,5 @@
 <?php
-include (__SITE_PATH . '/config/config.php');
+include (__LIB_PATH . '/config/config.php');
 
 class Connector implements Config {
 	

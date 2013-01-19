@@ -6,10 +6,10 @@ Language : Español
  */
 $lang = array();
 
-$lang['PAGE_NAME'] = 'KFC';
-$lang['PAGE_TITLE'] = 'KFC TE PREMIA';
+$lang['PAGE_NAME'] = 'PHP MVC';
+$lang['PAGE_TITLE'] = 'PHP MVC TEST';
 
-$lang['FOOTER_SITE'] = 'KFC TE PREMIA';
+$lang['FOOTER_SITE'] = 'PHP MVC';
 // Paginas
 $lang['INIT_TITLE'] = 'Bienvenido';
 

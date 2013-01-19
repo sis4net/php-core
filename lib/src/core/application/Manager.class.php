@@ -1,5 +1,5 @@
 <?php
-include (__SITE_PATH  .'/service/Connector.php');
+include (__LIB_PATH  .'/application/Connector.php');
 
 class Manager extends Connector 
 {
