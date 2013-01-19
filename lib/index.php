@@ -9,7 +9,7 @@
  define ('__SITE_PATH', $site_path . '/../src/');
 
  /*** include the init.php file ***/
- include 'includes/init.php';
+ include $site_path . '/includes/init.php';
 	
 /***	Cargamos el Manager ***/
  $registry->manager = new Manager();

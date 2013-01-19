@@ -27,6 +27,9 @@ include_once (__LIB_PATH  .'/dao/DAO.php');
 // Model
 include_once (__LIB_PATH  .'/model/Object.php');
 
+// Se agrega lo propio del proyecto
+include_once (__SITE_PATH  .'/../includes/init.php');
+
 
  /*** auto load model classes ***/
 function __autoload($class_name) {
