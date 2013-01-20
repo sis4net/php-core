@@ -65,6 +65,7 @@ abstract class BaseController implements Config {
 		} catch (Exception $e) {
 			error_log("Ocurrio un error en la Aplicacion no detectado : " + $e->getMessage(), 0);
 			$this->registry->template->msg = $e->getMessage();
+			$controllerName = ".";
 			$action = "error";
 		}
 		

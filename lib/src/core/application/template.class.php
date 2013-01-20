@@ -50,7 +50,11 @@ class Template {
 		// Definimos el Container
 		$container = __SITE_PATH.'/views/container/container.php';
 		// Definimos la Pagina a Cargar
-		$path = __SITE_PATH . '/views/'. $controller . '/' .  $name . '.php';
+		if ($controller == '.') {
+			$path = __SITE_PATH . '/views/'.  $name . '.php';
+		} else {
+			$path = __SITE_PATH . '/views/'. $controller . '/' .  $name . '.php';
+		}
 
 		if (file_exists($path) == false)
 		{
