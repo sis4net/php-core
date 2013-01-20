@@ -1,0 +1,11 @@
+deps
+deps.lock
+app/cache/*
+app/log/
+app/logs/*
+.buildpath
+music/
+.project
+.settings/
+robots.txt
+sitemap.txt
