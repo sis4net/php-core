@@ -18,6 +18,8 @@ class router {
 	public $controller;
 
 	public $action; 
+	
+	public $controllerName;
 
 	function __construct($registry) {
 		$this->registry = $registry;
@@ -82,7 +84,7 @@ class router {
 			$action = $this->action;
 		}
 		/*** run the action ***/
-		$controller->$action($this->controller);
+		$controller->$action($this->controllerName);
 	 }
 
 
@@ -128,6 +130,7 @@ class router {
 			$this->file = $this->path .'/'. $this->controller . '/' . $this->controller . 'Controller.php';	
 			
 		} else {
+			$this->controllerName = $this->controller;
 			/*** set the file path ***/
 			$this->file = $this->path .'/'. $this->controller . '/' . $this->action . $this->controller . 'Controller.php';			
 			$this->controller = $this->action . $this->controller;
