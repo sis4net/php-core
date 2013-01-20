@@ -7,7 +7,7 @@
  $site_path = realpath(dirname(__FILE__));
  define ('__LIB_PATH', $site_path . '/src/core/');
  
- $siteController = $site_path . '/../src/';
+ $siteController = $site_path . '/../../src/';
  
  if (file_exists($siteController) == false) {
  	$siteController = $site_path . '/src/core/';
