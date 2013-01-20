@@ -6,10 +6,18 @@
  /*** define the site path ***/
  $site_path = realpath(dirname(__FILE__));
  define ('__LIB_PATH', $site_path . '/src/core/');
- define ('__SITE_PATH', $site_path . '/../src/');
+ 
+ $siteController = $site_path . '/../src/';
+ 
+ if (file_exists($siteController) == false) {
+ 	$siteController = $site_path . '/src/core/';
+ }
+ 
+ define ('__SITE_PATH', $siteController);
+ 
 
  /*** include the init.php file ***/
- include $site_path . '/includes/init.php';
+ include_once $site_path . '/includes/init.php';
 	
 /***	Cargamos el Manager ***/
  $registry->manager = new Manager();
