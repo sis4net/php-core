@@ -69,7 +69,7 @@ abstract class BaseController implements Config {
 			$action = "error";
 		}
 		
-		if (isGloba()) {
+		if ($this->isGloba()) {
 			$controllerName = ".";
 		}
 		
