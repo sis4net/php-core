@@ -1,13 +1,12 @@
-php-core
+php-core by Ivan A. Flores
 ========
+
+Lincensed under GPL2 - http://www.gnu.org/licenses/gpl-2.0.html
 
 MVC Php
 
 Se esta trabajando en la estructura para manejar como libreria, para los proyectos php
 
-version 0.0.1
+version 2.0.0
 
-# Uso
-
-Autor : Ivan A. Flores Correa
 Email : ifloresenator@gmail.com
