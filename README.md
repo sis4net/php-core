@@ -9,8 +9,5 @@ version 0.0.1
 
 # Uso
 
-
-
-
 Autor : Ivan A. Flores Correa
 Email : ifloresenator@gmail.com
