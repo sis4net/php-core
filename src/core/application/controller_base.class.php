@@ -69,6 +69,10 @@ abstract class BaseController implements Config {
 			$action = "error";
 		}
 		
+		if (isGloba()) {
+			$controllerName = ".";
+		}
+		
 		// Verificamos si es una respuesta de controlador
 		if (strstr($action, '->') != '') {
 			$controller = true;
@@ -84,6 +88,13 @@ abstract class BaseController implements Config {
 			header("Location: http://$host$uri/$action");
 		}
 		
+	}
+	
+	/**
+	 * Methodo para que la pagina la busque en el raiz
+	 */
+	protected  function isGloba() {
+		return false;
 	}
 	
 	/**

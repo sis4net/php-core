@@ -32,5 +32,9 @@ abstract class CrudController extends BaseController {
 		return true;
 	}
 	
+	protected  function isGloba() {
+		return true;
+	}
+	
 }
 ?>
