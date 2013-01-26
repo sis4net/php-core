@@ -3,7 +3,7 @@
 interface Config {
 	
 	// Datos Sitio
-	const site_url = "/php-mvc";
+	const site_url = "/demo-php-mvc";
 	
 	/*
 	 * Datos Conexion BD

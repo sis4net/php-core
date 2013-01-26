@@ -4,6 +4,7 @@
  include_once __LIB_PATH . '/application/' . 'controller_base.class.php';
  include_once __LIB_PATH . '/application/' . 'crudController.php';
  include_once __LIB_PATH . '/application/' . 'uploadController.php';
+ include_once __LIB_PATH . '/application/' . 'jsonController.php';
 
  /*** include the registry class ***/
  include_once __LIB_PATH . '/application/' . 'registry.class.php';
