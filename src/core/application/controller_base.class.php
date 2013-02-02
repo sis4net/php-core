@@ -78,6 +78,13 @@ abstract class BaseController implements Config {
 			$controller = true;
 			$action =  substr(strstr($action, '->'),2);
 		}
+		// Verificamos si se debe exportar
+		if ($this->export()) {
+			header("Content-type: application/vnd.ms-excel; name='excel'");
+			header("Content-Disposition: filename=".$controllerName.".xls");
+			header("Pragma: no-cache");
+			header("Expires: 0");
+		}
 		
 		if (!$controller) {
 			$this->registry->template->show($controllerName, $action, $this->isModal());
@@ -88,6 +95,13 @@ abstract class BaseController implements Config {
 			header("Location: http://$host$uri/$action");
 		}
 		
+	}
+	
+	/**
+	 * Methodo para exportar el contenido
+	 */
+	protected  function export() {
+		return false;
 	}
 	
 	/**
