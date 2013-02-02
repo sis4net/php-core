@@ -72,6 +72,10 @@ class Service {
 		//$fecha = DateTime::createFromFormat('d/m/Y', $date);
 		//return  $fecha->format('Y-m-d');
 	}
+	
+	protected function getUrl() {
+		return "http://" . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+	}
 
 	/**
 	 * Methodos por Defecto de los Servicios
