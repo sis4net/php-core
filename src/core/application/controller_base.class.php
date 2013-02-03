@@ -125,8 +125,12 @@ abstract class BaseController implements Config {
 		$lang_site = 'es';	
 		$lang_file = 'lang.es.php';
 
-		
-		include_once __LIB_PATH . '/../lang/'.$lang_file;
+		if (file_exists(__SITE_PATH . '/lang/'.$lang_file) == false) { 
+			include_once __LIB_PATH . '/../lang/'.$lang_file;
+		} else {
+			// Lag del Sitio
+			include_once __SITE_PATH . '/lang/'.$lang_file;
+		}		
 		
 		// setamos el Lang en la Pagina
 		//$this->lang = $lang;
