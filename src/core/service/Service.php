@@ -108,6 +108,10 @@ class Service {
 	public function delete($obj) {
 		$this->dao->delete($obj);
 	}
+	
+	public function detail($obj) {
+		return $this->dao->detail($obj);
+	}
 
 }
 
