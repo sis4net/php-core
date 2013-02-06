@@ -7,6 +7,15 @@
 include_once (__LIB_PATH . '/config/config.php');
 
 abstract class BaseController implements Config {
+	
+	// Key de CAPTCHA
+	protected $publickey = self::publickey ; // you got this from the signup page
+	
+	protected $privatekey = self::privatekey;
+	
+	protected $mailhide_pubkey = self::mailhide_pubkey;
+	
+	protected $mailhide_privkey = self::mailhide_privkey;
 
 	/*
 	 * @registry object
@@ -338,8 +347,10 @@ abstract class BaseController implements Config {
 	protected function isAdmin() {
 		$user = $this->getUserSession();
 		if ($user != null) {
-			if ($user->profile == 1) {
-				return true;
+			if (isset($user->profile)) {
+				if ($user->profile == 1) {
+					return true;
+				}
 			}
 		}
 		return false;
@@ -351,8 +362,10 @@ abstract class BaseController implements Config {
 	protected function isClient() {
 		$user = $this->getUserSession();
 		if ($user != null) {
-			if ($user->profile == 3) {
-				return true;
+			if (isset($user->profile)) {
+				if ($user->profile == 3) {
+					return true;
+				}
 			}
 		}
 		return false;

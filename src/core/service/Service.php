@@ -38,8 +38,8 @@ class Service implements Config {
 		$contact = $email;
 		$subject = "Contacto WEB KFC";
 
-		$cabeceras = 'From: '. self::main_to . "\r\n" .
-				'Reply-To: ' . self::main_to  . "\r\n" .
+		$cabeceras = 'From: '. self::mail_to . "\r\n" .
+				'Reply-To: ' . self::mail_to  . "\r\n" .
 				'X-Mailer: PHP/' . phpversion();
 
 		mail($contact, $subject, $message, $cabeceras);
