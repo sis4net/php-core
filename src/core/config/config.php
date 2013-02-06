@@ -5,6 +5,8 @@ interface Config {
 	// Datos Sitio
 	const site_url = "/demo-php-mvc";
 	
+	const main_to = "info@mvc.cl";
+	
 	/*
 	 * Datos Conexion BD
 	 */
