@@ -1,11 +1,12 @@
 <?php
+include_once (__LIB_PATH . '/config/config.php');
 /**
  * Servicio Para implementar la Logica de los servicios
  *
  * @author iflores
  *
  */
-class Service {
+class Service implements Config {
 
 	private $db = NULL;
 
@@ -37,8 +38,8 @@ class Service {
 		$contact = $email;
 		$subject = "Contacto WEB KFC";
 
-		$cabeceras = 'From: info@kfc.cl '. "\r\n" .
-				'Reply-To: info@kfc.cl ' . "\r\n" .
+		$cabeceras = 'From: '. self::mail_to . "\r\n" .
+				'Reply-To: ' . self::mail_to  . "\r\n" .
 				'X-Mailer: PHP/' . phpversion();
 
 		mail($contact, $subject, $message, $cabeceras);
@@ -74,7 +75,7 @@ class Service {
 	}
 	
 	protected function getUrl() {
-		return "http://" . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+		return "http://" . $_SERVER["SERVER_NAME"] . self::site_url;
 	}
 
 	/**
@@ -107,6 +108,10 @@ class Service {
 
 	public function delete($obj) {
 		$this->dao->delete($obj);
+	}
+	
+	public function detail($obj) {
+		return $this->dao->detail($obj);
 	}
 
 }
