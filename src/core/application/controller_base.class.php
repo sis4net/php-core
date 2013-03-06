@@ -65,7 +65,7 @@ abstract class BaseController implements Config {
 						$own = $this->getOwn();
 							
 						if (!$own) {
-							throw new Exception("Acceso No Autorizado.");
+							throw new Exception("No posee permiso para esta opcion."); 
 						}
 							
 					} else if ($this->onlyAdmin()) {
