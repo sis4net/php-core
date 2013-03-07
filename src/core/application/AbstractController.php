@@ -51,7 +51,7 @@ abstract class AbstractController implements Config {
 	/**
 	 * Methodo para que los Sitios Implementes sus logicas al inicio de la carga del controlador
 	 */
-	protected abstract function initSite();
+	protected  function initSite() {}
 
 	/**
 	 * Methodo publico para la ejecucion de los controladores
@@ -142,12 +142,12 @@ abstract class AbstractController implements Config {
 	* Methodo para guardar data para avlidar si es dueño
 	*
 	*/
-	protected abstract function setOwnData();
+	protected abstract function setOwnData() {}
 
 	/**
 	 * Methodo para implementar en sitios Logicas especificas al cargar controlador
 	 */
-	protected abstract function indexSite();
+	protected abstract function indexSite() {}
 
 	/**
 	 * Methodo para exportar el contenido
@@ -342,9 +342,11 @@ abstract class AbstractController implements Config {
 	}
 
 	/**
-	 * Methodo para implementar la validacion para saber si el usuario conectado es un administrador
+	 * Methodo para resscribir la validacion para saber si el usuario conectado es un administrador
 	 */
-	protected abstract function validAdminProfile();
+	protected function validAdminProfile() {
+		return false;
+	}
 
 	/**
 	 * Methodo que valida si es Cliente

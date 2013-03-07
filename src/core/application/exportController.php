@@ -15,17 +15,5 @@ abstract class exportController extends AbstractController {
 		return true;
 	}
 	
-	final protected function initSite() {
-	}
-	
-	final protected function indexSite() {
-	}
-	
-	final protected function validAdminProfile() {
-	}
-	
-	final protected function setOwnData() {
-	}
-	
 }
 ?>
