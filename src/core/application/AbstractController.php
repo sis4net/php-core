@@ -6,7 +6,7 @@
  **/
 include_once (__LIB_PATH . '/config/config.php');
 
-abstract class BaseController implements Config {
+abstract class AbstractController implements Config {
 	
 	// Key de CAPTCHA
 	protected $publickey = self::publickey ; // you got this from the signup page
@@ -42,14 +42,23 @@ abstract class BaseController implements Config {
 		// Site Name
 		$this->registry->template->site = self::site_url . "/";
 
-		// Por Defecto estan en False
-		$this->registry->template->comment = false;
-		$this->registry->template->like = false;
-		$this->registry->template->rating = false;
-
 		$this->registry->template->url = $this->getUrl();
+		
+		// Cargamos la logica del Sitio
+		$this->initSite();
 	}
-
+	
+	/**
+	 * Methodo para que los Sitios Implementes sus logicas al inicio de la carga del controlador
+	 */
+	protected abstract function initSite();
+	
+	/**
+	 * Methodo publico para la ejecucion de los controladores
+	 * 
+	 * @param unknown_type $controllerName
+	 * @throws Exception
+	 */
 	public function index($controllerName) {
 		$controller = false;
 		try {
@@ -82,22 +91,14 @@ abstract class BaseController implements Config {
 					throw new Exception("Debe Ingresar al Sitio.");
 				}
 			}
+			// Entregamos Session al Sitio
+			$this->registry->template->sessionSite = $this->getSessionSite();
 				
 			// Cargamos Pagina
 			$action = $this->action();
 
-			// Verificamos si lleva Like
-			if ($this->addLike()) {
-				$this->registry->template->like = true;
-				$this->registry->template->msgTwitter = $this->getMsgTwitter();
-			}
-			// Verificamos si lleva rating
-			if ($this->addRating()) {
-				$this->registry->template->rating = true;
-			}
-				
-			// Verificamos si lleva Comentarios
-			$this->setComment();
+			// Cargamos logica de sitios
+			$this->indexSite();
 
 		} catch (Exception $e) {
 			error_log("Ocurrio un error en la Aplicacion no detectado : " + $e->getMessage(), 0);
@@ -133,6 +134,11 @@ abstract class BaseController implements Config {
 		}
 
 	}
+	
+	/**
+	 * Methodo para implementar en sitios Logicas especificas al cargar controlador
+	 */
+	protected abstract function indexSite();
 
 	/**
 	 * Methodo para exportar el contenido
@@ -172,15 +178,15 @@ abstract class BaseController implements Config {
 
 		if(isset($_GET['lang'])) {
 			$lang_site = $_GET['lang'];
-		} else if(isSet($_SESSION['lang'])) {
-			$lang_site = $_SESSION['lang'];
+		} else if(isSet($this->getSessionSite()->lang)) {
+			$lang_site = $this->getSessionSite()->lang;
 		} else if(isSet($_COOKIE['lang'])) {
 			$lang_site = $_COOKIE['lang'];
 		} else {
 			$lang_site = 'es';
 		}
 		if (!isSet($_SESSION['lang'])) {
-			$_SESSION['lang'] = $lang_site;
+			$this->getSessionSite()->lang = $lang_site;
 			setcookie('lang', $lang_site, time() + (3600 * 24 * 30));
 		}
 		// Setetamos el Lang
@@ -251,80 +257,57 @@ abstract class BaseController implements Config {
 	}
 	
 	/**
-	 * Methodo para setear la Noticia
+	 * Methodo que obtiene la Session del $_SESSION
 	 */
-	protected function getNotice() {
-		return 0;
-	}
-	
-	/**
-	 * Methodo para setear el Grupo
-	 */
-	protected function getGroup() {
-		return 0;
-	}
-	
-	private function delGroupSession() {
-		// Borramos el Grupo de la Session
-		$_SESSION['group'] = null;
-	}
-	
-	/**
-	 * Methodo para setear mensaje de Twitter
-	 */
-	protected function getMsgTwitter() {
-		return "";
-	}
-	
-	/**
-	 * Methodo para agregar rating a pagina
-	 */
-	protected function addRating() {
-		return false;
-	}
-	/**
-	 * Methodo para agregar botones de Like
-	 * @return boolean
-	 */
-	protected function addLike() {
-		return false;
-	}
-	
-	/**
-	 * Methodo para agregar comentarios en pagina
-	 */
-	protected function addComment() {
-		return false;
-	}
-	
-	/**
-	 * Methodo para Incluir los Comentarios
-	 */
-	private function setComment() {
-		//TODO: Eliminar este methodo
-		if ($this->addComment()) {
-			$this->registry->template->comment = true;
-			$this->registry->template->commentUrl = __SITE_PATH.'/views/comment/comment.php';
-	
-			// Agregamos noticia o grupo a Session
-			$_SESSION['notice'] = $this->getNotice();
-			$_SESSION['groups'] = $this->getGroup();
-			// Setamos el listado de Noticias
-			$listComment = $this->registry->manager->getService('comment')->listComment();
-			$this->registry->template->listComment = $listComment;
+	private function getSession() {
+		if (isset($_SESSION[self::site_name])) {
+			return $_SESSION[self::site_name];
 		}
+		return null;
+	}
+	
+	/**
+	 * Methodo que crea la session para el Grupo
+	 * @param $obj
+	 */
+	final protected function createSession($obj) {
+		session_regenerate_id();
+		session_register(self::site_name . '-login');
+		
+		$_SESSION[self::site_name] = $obj;
+		
+		if ($this->getUserSession() == null) {
+			throw new Exception('No se pudo crear la session');
+		}
+	}
+	
+	/**
+	 * Methodo que destruye la Session del Sitio
+	 */
+	final protected function deleteSession() {
+		$session = $this->getSession();
+		$session = null;
+		session_destroy();
+	}
+	
+	/**
+	 * Methodo que obtiene la Session para ser utilizada en el Sitio
+	 */
+	final protected function getSessionSite() {
+		return $this->getSession();
 	}
 	
 	/**
 	 * Methodo que valida si esta Logeado
 	 */
-	protected function isLogin() {
-		if (isset($_SESSION['user'])) {
-			if ($_SESSION['user'] != null) {
+	final protected function isLogin() {
+		$session = $this->getSessionSite();
+		if (isset($session)) {
+			if ($session != null) {
 				return true;
 			}
-		} else if(isset($_COOKIE['user'])) {
-			$_SESSION['user'] = $_COOKIE['user'];
+		} else if(isset($_COOKIE[self::site_name])) {
+			$session = $_COOKIE[self::site_name];
 		}
 		return false;
 	}
@@ -332,10 +315,11 @@ abstract class BaseController implements Config {
 	/**
 	 * Methodo que obtiene los datos de la Session
 	 */
-	protected function getUserSession() {
+	final protected function getUserSession() {
 		$user = null;
-		if(isset($_SESSION['user'])) {
-			$user = $_SESSION['user'];
+		$session = $this->getSessionSite();
+		if(isset($session)) {
+			$user = $session;
 		}
 		return $user;
 	}
@@ -344,7 +328,7 @@ abstract class BaseController implements Config {
 	 * Methodo que valida si es Administrador
 	 * @return boolean
 	 */
-	protected function isAdmin() {
+	final protected function isAdmin() {
 		$user = $this->getUserSession();
 		if ($user != null) {
 			if (isset($user->profile)) {
@@ -359,7 +343,7 @@ abstract class BaseController implements Config {
 	/**
 	 * Methodo que valida si es Cliente
 	 */
-	protected function isClient() {
+	final protected function isClient() {
 		$user = $this->getUserSession();
 		if ($user != null) {
 			if (isset($user->profile)) {
@@ -369,42 +353,6 @@ abstract class BaseController implements Config {
 			}
 		}
 		return false;
-	}
-
-	/**
-	 * Methodo para validar si eres del Grupo
-	 */
-	protected function isGroupMember() {
-		// Verificamos si existe la Session del Grupo
-		if (isset($_SESSION['group'])) {
-			// Validamos si es Integrante o Manager del Grupo
-			$group = new Group();
-			$group->user = $this->getUserSession()->id;
-			$group->id = $_SESSION['group'];
-
-			$groups = $this->getUserSession()->groups;
-
-			$valid = false;
-
-			foreach ($groups as &$elem) {
-				if ($elem->id == $group->id) {
-					$valid = true;
-				}
-			}
-
-			return $valid;
-		}
-		return false;
-	}
-
-	/**
-	 * Methodo que obtiene el Grupo de la Session
-	 */
-	private function setGroup() {
-		if (!isset($_SESSION['group']) || $_SESSION['group'] == null) {
-			session_register("id");
-			$_SESSION['group'] = $_GET['id'];
-		}
 	}
 
 	private function getUrl() {

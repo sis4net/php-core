@@ -5,7 +5,7 @@
  * @author iflores
  *
  */
-abstract class exportController extends BaseController {
+abstract class exportController extends AbstractController {
 	
 	protected function export() {
 		return true;

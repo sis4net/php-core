@@ -1,7 +1,7 @@
 <?php
 
  /*** include the controller class ***/
- include_once __LIB_PATH . '/application/' . 'controller_base.class.php';
+ include_once __LIB_PATH . '/application/' . 'AbstractController.php';
  include_once __LIB_PATH . '/application/' . 'crudController.php';
  include_once __LIB_PATH . '/application/' . 'uploadController.php';
  include_once __LIB_PATH . '/application/' . 'jsonController.php';

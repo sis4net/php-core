@@ -1,6 +1,6 @@
 <?php
 
-abstract class JsonController extends BaseController {
+abstract class JsonController extends AbstractController {
 	
 	public function action() {
 		$action = "json";
