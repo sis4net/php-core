@@ -24,6 +24,6 @@ Libreria para trabajar con MVC dentro de un proyecto PHP.
 * Abstracion de DAOs con Controlador
 * Manejo de Servicios desde Controlador
 
-version 5.2
+version 5.3
 
 Email : ifloresenator@gmail.com
