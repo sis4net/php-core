@@ -72,8 +72,8 @@ abstract class AbstractController implements Config {
 			if ($this->accessControl()) {
 				if ($this->isLogin()) {
 					if ($this->isOwn() && !$this->isAdmin()) {
-						// Buscamos si el Grupo esta en Session
-						$this->setGroup();
+						// Guardamos Data para validar si es dueño
+						$this->setOwnData();
 						// Validamos si el Dueño
 						$own = $this->getOwn();
 							
@@ -136,6 +136,13 @@ abstract class AbstractController implements Config {
 		}
 
 	}
+	
+	/**
+	* 
+	* Methodo para guardar data para avlidar si es dueño
+	*
+	*/
+	protected abstract function setOwnData();
 
 	/**
 	 * Methodo para implementar en sitios Logicas especificas al cargar controlador
