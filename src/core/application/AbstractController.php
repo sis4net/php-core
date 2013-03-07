@@ -7,14 +7,14 @@
 include_once (__LIB_PATH . '/config/config.php');
 
 abstract class AbstractController implements Config {
-	
+
 	// Key de CAPTCHA
 	protected $publickey = self::publickey ; // you got this from the signup page
-	
+
 	protected $privatekey = self::privatekey;
-	
+
 	protected $mailhide_pubkey = self::mailhide_pubkey;
-	
+
 	protected $mailhide_privkey = self::mailhide_privkey;
 
 	/*
@@ -43,19 +43,19 @@ abstract class AbstractController implements Config {
 		$this->registry->template->site = self::site_url . "/";
 
 		$this->registry->template->url = $this->getUrl();
-		
+
 		// Cargamos la logica del Sitio
 		$this->initSite();
 	}
-	
+
 	/**
 	 * Methodo para que los Sitios Implementes sus logicas al inicio de la carga del controlador
 	 */
 	protected abstract function initSite();
-	
+
 	/**
 	 * Methodo publico para la ejecucion de los controladores
-	 * 
+	 *
 	 * @param unknown_type $controllerName
 	 * @throws Exception
 	 */
@@ -64,6 +64,10 @@ abstract class AbstractController implements Config {
 		try {
 			// Seteamos Todas las COnfiguraciones Iniciales
 			$this->init();
+				
+			// Entregamos Session al Sitio
+			$this->registry->template->sessionSite = $this->getSessionSite();
+				
 			$error = false;
 			if ($this->accessControl()) {
 				if ($this->isLogin()) {
@@ -74,7 +78,7 @@ abstract class AbstractController implements Config {
 						$own = $this->getOwn();
 							
 						if (!$own) {
-							throw new Exception("No posee permiso para esta opcion."); 
+							throw new Exception("No posee permiso para esta opcion.");
 						}
 							
 					} else if ($this->onlyAdmin()) {
@@ -91,9 +95,7 @@ abstract class AbstractController implements Config {
 					throw new Exception("Debe Ingresar al Sitio.");
 				}
 			}
-			// Entregamos Session al Sitio
-			$this->registry->template->sessionSite = $this->getSessionSite();
-				
+
 			// Cargamos Pagina
 			$action = $this->action();
 
@@ -134,7 +136,7 @@ abstract class AbstractController implements Config {
 		}
 
 	}
-	
+
 	/**
 	 * Methodo para implementar en sitios Logicas especificas al cargar controlador
 	 */
@@ -255,7 +257,7 @@ abstract class AbstractController implements Config {
 	protected function isOwn() {
 		return false;
 	}
-	
+
 	/**
 	 * Methodo que obtiene la Session del $_SESSION
 	 */
@@ -265,7 +267,7 @@ abstract class AbstractController implements Config {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Methodo que crea la session para el Grupo
 	 * @param $obj
@@ -273,14 +275,14 @@ abstract class AbstractController implements Config {
 	final protected function createSession($obj) {
 		session_regenerate_id();
 		session_register(self::site_name . '-login');
-		
+
 		$_SESSION[self::site_name] = $obj;
-		
+
 		if ($this->getUserSession() == null) {
 			throw new Exception('No se pudo crear la session');
 		}
 	}
-	
+
 	/**
 	 * Methodo que destruye la Session del Sitio
 	 */
@@ -289,14 +291,14 @@ abstract class AbstractController implements Config {
 		$session = null;
 		session_destroy();
 	}
-	
+
 	/**
 	 * Methodo que obtiene la Session para ser utilizada en el Sitio
 	 */
 	final protected function getSessionSite() {
 		return $this->getSession();
 	}
-	
+
 	/**
 	 * Methodo que valida si esta Logeado
 	 */
@@ -311,7 +313,7 @@ abstract class AbstractController implements Config {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Methodo que obtiene los datos de la Session
 	 */
@@ -329,16 +331,13 @@ abstract class AbstractController implements Config {
 	 * @return boolean
 	 */
 	final protected function isAdmin() {
-		$user = $this->getUserSession();
-		if ($user != null) {
-			if (isset($user->profile)) {
-				if ($user->profile == 1) {
-					return true;
-				}
-			}
-		}
-		return false;
+		return $this->validAdminProfile();
 	}
+
+	/**
+	 * Methodo para implementar la validacion para saber si el usuario conectado es un administrador
+	 */
+	protected abstract function validAdminProfile();
 
 	/**
 	 * Methodo que valida si es Cliente
