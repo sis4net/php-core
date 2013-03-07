@@ -142,12 +142,12 @@ abstract class AbstractController implements Config {
 	* Methodo para guardar data para avlidar si es dueño
 	*
 	*/
-	protected abstract function setOwnData() {}
+	protected  function setOwnData() {}
 
 	/**
 	 * Methodo para implementar en sitios Logicas especificas al cargar controlador
 	 */
-	protected abstract function indexSite() {}
+	protected  function indexSite() {}
 
 	/**
 	 * Methodo para exportar el contenido
