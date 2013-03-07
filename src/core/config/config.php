@@ -1,6 +1,8 @@
 <?php
 
 interface Config {
+	// Nombre del Sitio
+	const site_name = "bandztorm";
 	
 	// Datos Sitio
 	const site_url = "/web-music";

@@ -5,8 +5,25 @@ Lincensed under GPL2 - http://www.gnu.org/licenses/gpl-2.0.html
 
 MVC Php
 
-Se esta trabajando en la estructura para manejar como libreria, para los proyectos php
+Libreria para trabajar con MVC dentro de un proyecto PHP.
 
-version 2.0.0
+# Feature
+
+* Manejo de Session
+* Control de Servicio
+* Integracion de Servicvios con DAO
+* Manejo de Session a nivel de Pagina
+* MultiLenguaje
+* Control de Acceso
+* Manejo de Contenedor Web para las Paginas
+* Manejo de Modales
+* Distintos niveles de seguridad por Controller
+* Controlador para manejo de Crud
+* Controlador para subida de archivos
+* Controlador para JSON
+* Abstracion de DAOs con Controlador
+* Manejo de Servicios desde Controlador
+
+version 5.0
 
 Email : ifloresenator@gmail.com

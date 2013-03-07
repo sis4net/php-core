@@ -1,6 +1,6 @@
 <?php
 
-abstract class CrudController extends BaseController {
+abstract class CrudController extends AbstractController {
 	
 	public function action() {
 		$action = "success";

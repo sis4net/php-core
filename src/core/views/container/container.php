@@ -39,7 +39,7 @@
 			<div id="homeLogout">
 				<a href="<?php echo $site; ?>index">Inicio</a>
 			<?php 
-			if (isset($_SESSION['user'])) {
+			if (isset($sessionSite)) {
 			?>
 				<a href="<?php echo $site; ?>user/logout">Logout</a>
 			<?php 
