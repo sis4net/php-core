@@ -51,7 +51,7 @@ abstract class AbstractController implements Config {
 	/**
 	 * Methodo para que los Sitios Implementes sus logicas al inicio de la carga del controlador
 	 */
-	protected abstract function initSite();
+	protected  function initSite() {}
 
 	/**
 	 * Methodo publico para la ejecucion de los controladores
@@ -84,11 +84,11 @@ abstract class AbstractController implements Config {
 					} else if ($this->onlyAdmin()) {
 						// Verificamos si es un Administrador
 						if (!$this->isAdmin()) {
-							throw new Exception("Acceso No Autorizado.");
+							throw new Exception("Acceso No Autorizado.[A]");
 						}
 					} else if ($this->isClient()) {
 						if (!$this->accessClient()) {
-							throw new Exception("Acceso No Autorizado.");
+							throw new Exception("Acceso No Autorizado.[C]");
 						}
 					}
 				} else {
@@ -142,12 +142,12 @@ abstract class AbstractController implements Config {
 	* Methodo para guardar data para avlidar si es dueño
 	*
 	*/
-	protected abstract function setOwnData();
+	protected  function setOwnData() {}
 
 	/**
 	 * Methodo para implementar en sitios Logicas especificas al cargar controlador
 	 */
-	protected abstract function indexSite();
+	protected  function indexSite() {}
 
 	/**
 	 * Methodo para exportar el contenido
@@ -338,13 +338,17 @@ abstract class AbstractController implements Config {
 	 * @return boolean
 	 */
 	final protected function isAdmin() {
-		return $this->validAdminProfile();
+		$user = $this->getUserSession();
+		if ($user != null) {
+			$profile = self::profileType;
+			if (isset($user->$profile)) {
+				if ($user->$profile == 1) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
-
-	/**
-	 * Methodo para implementar la validacion para saber si el usuario conectado es un administrador
-	 */
-	protected abstract function validAdminProfile();
 
 	/**
 	 * Methodo que valida si es Cliente
@@ -352,8 +356,9 @@ abstract class AbstractController implements Config {
 	final protected function isClient() {
 		$user = $this->getUserSession();
 		if ($user != null) {
-			if (isset($user->profile)) {
-				if ($user->profile == 3) {
+			$profile = self::profileType;
+			if (isset($user->$profile)) {
+				if ($user->$profile == 3) {
 					return true;
 				}
 			}
