@@ -2,10 +2,10 @@
 
 interface Config {
 	// Nombre del Sitio
-	const site_name = "kfcdelivery";
+	const site_name = "php-mvc";
 	
 	// Datos Sitio
-	const site_url = "/kfcdelivery";
+	const site_url = "/php-mvc";
 	
 	const mail_to = "info@kfc.cl";
 	
@@ -24,9 +24,9 @@ interface Config {
 	 * Datos Conexion BD
 	 */
 	const db_ip = "localhost";
-	const db_name = "walkerdi_kfcdelivery";
-	const db_user = "walkerdi_kfc";
-	const db_pass = "wH@Ia5M%JrLa";
+	const db_name = "php-mvc";
+	const db_user = "user";
+	const db_pass = "pass";
 
 }
 ?>
