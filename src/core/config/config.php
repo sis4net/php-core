@@ -2,28 +2,31 @@
 
 interface Config {
 	// Nombre del Sitio
-	const site_name = "bandztorm";
+	const site_name = "kfcdelivery";
 	
 	// Datos Sitio
-	const site_url = "/web-music";
+	const site_url = "/kfcdelivery";
 	
-	const mail_to = "info@mvc.cl";
+	const mail_to = "info@kfc.cl";
 	
-	const publickey = "6Lcn5tESAAAAAO8bt2zLZ4iOiUgg4kcIs9tHmRz-"; // you got this from the signup page
+	const publickey = ""; // you got this from the signup page
 	
-	const privatekey = "6Lcn5tESAAAAAIS4jGH4-vv4fNFmpAByoGuEMVct";
+	const privatekey = "";
 	
-	const mailhide_pubkey = '01UgYg_HejXCyK5VugKY7ffA==';
+	const mailhide_pubkey = '';
 	
-	const mailhide_privkey = 'f02bf086c8fee2cbf0362af410df7713';
+	const mailhide_privkey = '';
+
+	// Campos que define el atributo de donde sacar el perfil del Objeto de la session
+	const profileType = 'profile';
 	
 	/*
 	 * Datos Conexion BD
 	 */
 	const db_ip = "localhost";
-	const db_name = "bandztor_db";
-	const db_user = "bandztor_user";
-	const db_pass = "bandztorm";
+	const db_name = "walkerdi_kfcdelivery";
+	const db_user = "walkerdi_kfc";
+	const db_pass = "wH@Ia5M%JrLa";
 
 }
 ?>

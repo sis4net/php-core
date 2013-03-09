@@ -84,11 +84,11 @@ abstract class AbstractController implements Config {
 					} else if ($this->onlyAdmin()) {
 						// Verificamos si es un Administrador
 						if (!$this->isAdmin()) {
-							throw new Exception("Acceso No Autorizado.");
+							throw new Exception("Acceso No Autorizado.[A]");
 						}
 					} else if ($this->isClient()) {
 						if (!$this->accessClient()) {
-							throw new Exception("Acceso No Autorizado.");
+							throw new Exception("Acceso No Autorizado.[C]");
 						}
 					}
 				} else {
@@ -338,13 +338,15 @@ abstract class AbstractController implements Config {
 	 * @return boolean
 	 */
 	final protected function isAdmin() {
-		return $this->validAdminProfile();
-	}
-
-	/**
-	 * Methodo para resscribir la validacion para saber si el usuario conectado es un administrador
-	 */
-	protected function validAdminProfile() {
+		$user = $this->getUserSession();
+		if ($user != null) {
+			$profile = self::profileType;
+			if (isset($user->$profile)) {
+				if ($user->$profile == 1) {
+					return true;
+				}
+			}
+		}
 		return false;
 	}
 
@@ -354,8 +356,9 @@ abstract class AbstractController implements Config {
 	final protected function isClient() {
 		$user = $this->getUserSession();
 		if ($user != null) {
-			if (isset($user->profile)) {
-				if ($user->profile == 3) {
+			$profile = self::profileType;
+			if (isset($user->$profile)) {
+				if ($user->$profile == 3) {
 					return true;
 				}
 			}
