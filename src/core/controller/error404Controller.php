@@ -11,6 +11,10 @@ class error404Controller extends AbstractController {
 	protected function accessControl() {
 		return false;
 	}
+	
+	protected  function isGloba() {
+		return true;
+	}
 
 }
 ?>
