@@ -1,6 +1,6 @@
 <?php
 
-class error404Controller extends BaseController {
+class error404Controller extends AbstractController {
 
 	public function action() 
 	{
@@ -10,6 +10,10 @@ class error404Controller extends BaseController {
 	
 	protected function accessControl() {
 		return false;
+	}
+	
+	protected  function isGloba() {
+		return true;
 	}
 
 }

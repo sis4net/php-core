@@ -2,10 +2,10 @@
 
 interface Config {
 	// Nombre del Sitio
-	const site_name = "php-mvc";
+	const site_name = "php-core";
 	
 	// Datos Sitio
-	const site_url = "/php-mvc";
+	const site_url = "/php-core";
 	
 	const mail_to = "info@kfc.cl";
 	
