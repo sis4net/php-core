@@ -1,5 +1,5 @@
 <?php
-
+ include_once (__LIB_PATH . '/config/config.php');
  /*** include the controller class ***/
  include_once __LIB_PATH . '/application/' . 'AbstractController.php';
  include_once __LIB_PATH . '/application/' . 'crudController.php';

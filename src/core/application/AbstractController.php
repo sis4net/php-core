@@ -1,10 +1,9 @@
 <?php
 /**
  *
- * Classe que controla el Sitio
- *
- **/
-include_once (__LIB_PATH . '/config/config.php');
+* Classe que controla el Sitio
+*
+**/
 
 abstract class AbstractController implements Config {
 
@@ -51,7 +50,8 @@ abstract class AbstractController implements Config {
 	/**
 	 * Methodo para que los Sitios Implementes sus logicas al inicio de la carga del controlador
 	 */
-	protected  function initSite() {}
+	protected  function initSite() {
+	}
 
 	/**
 	 * Methodo publico para la ejecucion de los controladores
@@ -64,10 +64,10 @@ abstract class AbstractController implements Config {
 		try {
 			// Seteamos Todas las COnfiguraciones Iniciales
 			$this->init();
-				
+
 			// Entregamos Session al Sitio
 			$this->registry->template->sessionSite = $this->getSessionSite();
-				
+
 			$error = false;
 			if ($this->accessControl()) {
 				if ($this->isLogin()) {
@@ -136,18 +136,20 @@ abstract class AbstractController implements Config {
 		}
 
 	}
-	
+
 	/**
-	* 
-	* Methodo para guardar data para avlidar si es dueño
-	*
-	*/
-	protected  function setOwnData() {}
+	 *
+	 * Methodo para guardar data para avlidar si es dueño
+	 *
+	 */
+	protected  function setOwnData() {
+	}
 
 	/**
 	 * Methodo para implementar en sitios Logicas especificas al cargar controlador
 	 */
-	protected  function indexSite() {}
+	protected  function indexSite() {
+	}
 
 	/**
 	 * Methodo para exportar el contenido
@@ -187,15 +189,12 @@ abstract class AbstractController implements Config {
 
 		if(isset($_GET['lang'])) {
 			$lang_site = $_GET['lang'];
-		} else if(isSet($this->getSessionSite()->lang)) {
-			$lang_site = $this->getSessionSite()->lang;
 		} else if(isSet($_COOKIE['lang'])) {
 			$lang_site = $_COOKIE['lang'];
 		} else {
 			$lang_site = 'es';
 		}
-		if (!isSet($_SESSION['lang'])) {
-			$this->getSessionSite()->lang = $lang_site;
+		if (!isSet($_COOKIE['lang'])) {
 			setcookie('lang', $lang_site, time() + (3600 * 24 * 30));
 		}
 		// Setetamos el Lang
@@ -239,7 +238,7 @@ abstract class AbstractController implements Config {
 	/**
 	 *	Methodo para validar el acceso al Sitio
 	 *
-	 */
+	*/
 	protected function accessControl() {
 		return true;
 	}

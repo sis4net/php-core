@@ -1,6 +1,6 @@
 <?php
 
-class error404Controller extends BaseController {
+class error404Controller extends AbstractController {
 
 	public function action() 
 	{
