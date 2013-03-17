@@ -23,7 +23,8 @@ Libreria para trabajar con MVC dentro de un proyecto PHP.
 * Controlador para JSON
 * Abstracion de DAOs con Controlador
 * Manejo de Servicios desde Controlador
+* Manejo Provado de Servicios y Atributos desde Controlados a Servicio, y desde Controlados a Vista
 
-version 5.5
+version 5.6
 
 Email : ifloresenator@gmail.com
