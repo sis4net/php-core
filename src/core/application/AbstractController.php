@@ -1,9 +1,9 @@
 <?php
 /**
  *
-* Classe que controla el Sitio
-*
-**/
+ * Classe que controla el Sitio
+ *
+ **/
 
 abstract class AbstractController implements Config {
 
@@ -19,12 +19,29 @@ abstract class AbstractController implements Config {
 	/*
 	 * @registry object
 	*/
-	protected $registry;
+	private $registry;
 
 	protected $lang;
 
 	function __construct($registry) {
 		$this->registry = $registry;
+	}
+
+	/**
+	 * Methodo que retorna un Servicio
+	 * @param unknown $service
+	 */
+	protected final function getService($service) {
+		return $this->registry->manager->getService($service);
+	}
+
+	/**
+	 * Methodo para setear atributos para la vista
+	 * @param String $name
+	 * @param unknown $value
+	 */
+	protected final function  setAttribute(String $name, $value) {
+		$this->registry->template->$name = $value;
 	}
 
 	/**
@@ -39,9 +56,9 @@ abstract class AbstractController implements Config {
 		$this->setLang();
 
 		// Site Name
-		$this->registry->template->site = self::site_url . "/";
+		$this->setAttribute('site', self::site_url . "/");
 
-		$this->registry->template->url = $this->getUrl();
+		$this->setAttribute('url',$this->getUrl());
 
 		// Cargamos la logica del Sitio
 		$this->initSite();
@@ -59,7 +76,7 @@ abstract class AbstractController implements Config {
 	 * @param unknown_type $controllerName
 	 * @throws Exception
 	 */
-	public function index($controllerName) {
+	public final function index($controllerName) {
 		$controller = false;
 		try {
 			// Seteamos Todas las COnfiguraciones Iniciales
@@ -225,9 +242,9 @@ abstract class AbstractController implements Config {
 
 		// setamos el Lang en la Pagina
 		//$this->lang = $lang;
-		$this->registry->template->lang = $lang;
+		$this->setAttribute('lang', $lang);
 
-		$this->registry->template->lang_site = $lang_site;
+		$this->setAttribute('lang_site',$lang_site);
 	}
 
 	/**
