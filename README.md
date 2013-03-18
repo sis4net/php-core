@@ -25,6 +25,6 @@ Libreria para trabajar con MVC dentro de un proyecto PHP.
 * Manejo de Servicios desde Controlador
 * Manejo Privado de Servicios y Atributos desde Controlados a Servicio, y desde Controlados a Vista
 
-version 5.7
+version 5.8
 
 Email : ifloresenator@gmail.com
