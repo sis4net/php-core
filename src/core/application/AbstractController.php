@@ -26,6 +26,17 @@ abstract class AbstractController implements Config {
 	function __construct($registry) {
 		$this->registry = $registry;
 	}
+	
+	/**
+	* Methodo ge entrega el id que viaja por URL
+	*
+	*/
+	protected final function getId() {
+		if (!isset($_GET['id'])) {
+			throw new Exception("Parametros ID no seteado.");	
+		}
+		return $_GET['id'];
+	}
 
 	/**
 	 * Methodo que retorna un Servicio
