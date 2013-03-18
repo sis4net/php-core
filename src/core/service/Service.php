@@ -35,14 +35,16 @@ class Service implements Config {
 	 * @param unknown_type $message
 	 */
 	protected function sendMail($email, $message) {
-		$contact = $email;
-		$subject = "Contacto WEB KFC";
-
-		$cabeceras = 'From: '. self::mail_to . "\r\n" .
-				'Reply-To: ' . self::mail_to  . "\r\n" .
-				'X-Mailer: PHP/' . phpversion();
-
-		mail($contact, $subject, $message, $cabeceras);
+		if (self::sendMail_cliente) {
+			$contact = $email;
+			$subject = self::title_mail;
+	
+			$cabeceras = 'From: '. self::mail_to . "\r\n" .
+					'Reply-To: ' . self::mail_to  . "\r\n" .
+					'X-Mailer: PHP/' . phpversion();
+	
+			mail($contact, $subject, $message, $cabeceras);
+		}
 	}
 
 	/**
