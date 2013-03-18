@@ -40,7 +40,7 @@ abstract class AbstractController implements Config {
 	 * @param String $name
 	 * @param unknown $value
 	 */
-	protected final function  setAttribute(String $name, $value) {
+	protected final function  setAttribute($name, $value) {
 		$this->registry->template->$name = $value;
 	}
 
