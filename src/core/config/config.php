@@ -27,6 +27,17 @@ interface Config {
 	const db_name = "php-mvc";
 	const db_user = "user";
 	const db_pass = "pass";
+	
+	// Modo develop
+	const develop = false;
+	
+	// Title Mail
+	const title_mail = 'Contacto Web';
+	
+	// Active/Disable mail
+	const sendMail_cliente = false;
+	
+	const sendMail_user = true;
 
 }
 ?>
