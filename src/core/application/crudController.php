@@ -16,7 +16,7 @@ abstract class CrudController extends AbstractController {
 			throw new Exception($e->getMessage());
 		}
 		// Se setea mSg a Mostrar en Pagina
-		$this->registry->template->msg = $msg;
+		$this->setAttribute('msg',$msg);
 		
 		return $action;
 	}
