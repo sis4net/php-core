@@ -8,7 +8,7 @@ abstract class JsonController extends AbstractController {
 		// Ejecutamos Logica
 		$msg =  $this->jsonAction();
 		// Se setea mSg a Mostrar en Pagina
-		$this->registry->template->msg = $msg;
+		$this->setAttribute('msg', $msg);
 		
 		return $action;
 	}
