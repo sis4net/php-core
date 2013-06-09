@@ -251,13 +251,13 @@ abstract class AbstractController implements Config {
 
 		if(isset($_GET['lang'])) {
 			$lang_site = $_GET['lang'];
-		} else if(isSet($_COOKIE['lang'])) {
-			$lang_site = $_COOKIE['lang'];
+		} else if(isSet($_COOKIE[self::site_name . 'lang'])) {
+			$lang_site = $_COOKIE[self::site_name . 'lang'];
 		} else {
 			$lang_site = 'es';
 		}
-		if (!isSet($_COOKIE['lang'])) {
-			setcookie('lang', $lang_site, time() + (3600 * 24 * 30));
+		if (!isSet($_COOKIE[self::site_name . 'lang'])) {
+			setcookie(self::site_name . 'lang', $lang_site, time() + (3600 * 24 * 30));
 		}
 		// Setetamos el Lang
 		switch ($lang_site) {

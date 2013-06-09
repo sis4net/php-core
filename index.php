@@ -1,4 +1,5 @@
 <?php
+ob_start();
 // Definimos Ubicacion del Sitio
 $site_path = realpath(dirname(__FILE__));
 
