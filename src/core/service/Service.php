@@ -41,7 +41,7 @@ class Service implements Config {
 	
 			$cabeceras = 'From: '. self::mail_to . "\r\n" .
 					'Reply-To: ' . self::mail_to  . "\r\n" .
-                      			"Content-type: text/html\r\n" .
+                      			'Content-type: text/html'."\r\n" .
 					'X-Mailer: PHP/' . phpversion();
 	
 			mail($contact, $subject, $message, $cabeceras);
