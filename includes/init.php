@@ -19,6 +19,9 @@
   /*** include the Manager class ***/
  include_once __LIB_PATH . '/application/' . 'Manager.class.php';
 
+ // Componentes Web
+  include_once __LIB_PATH . '/web/' . 'ListController.php';
+
 /* Classes */
 // Servicios
 include_once (__LIB_PATH  .'/service/Service.php');
@@ -28,6 +31,8 @@ include_once (__LIB_PATH  .'/dao/DAO.php');
 
 // Model
 include_once (__LIB_PATH  .'/model/Object.php');
+
+include_once (__LIB_PATH  .'/web/model/webTable.php');
 
 // Se agrega lo propio del proyecto
 $init = __SITE_PATH  .'/../includes/init.php';
