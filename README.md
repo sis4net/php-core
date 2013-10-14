@@ -25,7 +25,8 @@ Libreria para trabajar con MVC dentro de un proyecto PHP.
 * Manejo de Servicios desde Controlador
 * Manejo Privado de Servicios y Atributos desde Controlados a Servicio, y desde Controlados a Vista
 * Se deja todo el manejo de la libreria como Classe, para que su uso sea mas seguro
+* Se agregan componentes Visuales para construccion de CRUD
 
-version 5.13
+version 5.14
 
 Email : ifloresenator@gmail.com

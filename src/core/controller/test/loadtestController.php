@@ -11,7 +11,19 @@ class loadtestController extends EditController {
 		$this->addField('input', "INIT_NAME", 'input', 30, true);
 		$this->addField('text', "INIT_DESCRIPTION", 'text', 200, false);
 		$this->addField('number', "INIT_NUMBER", 'number', 10, true);
-		$this->addField('select', "INIT_NUMBER", 'select', true, $list);
+		$this->addField('select', "INIT_NUMBER", 'select', 0, true, $this->listSelect());
+	}
+
+	private function listSelect() {
+		for ($i = 1; $i <= 5; $i++) {
+			$test = new Test();
+			$test->id = $i;
+			$test->name = 'List' . $i;
+
+			$list[] = $test;
+		}
+		
+		return $list;
 	}
 	
 	protected function loadData() {

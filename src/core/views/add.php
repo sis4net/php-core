@@ -24,7 +24,14 @@ foreach ($formData->fields as $field) {
     } else if ($field->type == 'select') {
     ?>
      <select id="<?php echo $field->name; ?>" name="<?php echo $field->name; ?>" class="span5">
-      <option value=""><?php echo $value; ?></option>      
+      <option value="">...</option>      
+      <?php
+      foreach ($field->list as $elem) {
+      ?>
+      <option value="<?php echo $elem->id; ?>" <?php if ($elem->id == $value) { echo "selected='selected'"; } ?>><?php echo $elem->name; ?></option>   
+      <?php 
+      }    
+      ?>
     </select> <?php 
     } else {
     ?>
