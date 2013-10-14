@@ -35,6 +35,7 @@ include_once (__LIB_PATH  .'/dao/DAO.php');
 
 // Model
 include_once (__LIB_PATH  .'/model/Object.php');
+include_once (__LIB_PATH  .'/model/Test.php');
 
 include_once (__LIB_PATH  .'/web/model/webTable.php');
 include_once (__LIB_PATH  .'/web/model/FormData.php');

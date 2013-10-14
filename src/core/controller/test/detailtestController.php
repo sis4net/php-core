@@ -7,13 +7,21 @@ class detailtestController extends DetailController {
 	}
 	
 	protected function setFields() {
-		$this->addField('name', "INIT_NAME", 'input', 30, true);
-		$this->addField('description', "INIT_DESCRIPTION", 'text', 200, false);
-		$this->addField('Number', "INIT_NUMBER", 'number', 10, true);
+		$this->addField('input', "INIT_NAME");
+		$this->addField('text', "INIT_DESCRIPTION");
+		$this->addField('number', "INIT_NUMBER");
+		$this->addField('select', "INIT_NUMBER");
 	}
 	
 	protected function loadData() {
-		return new FieldTable('test', '');
+		$test = new Test();
+		$test->id = 1;
+		$test->input = "Input";
+		$test->text = "Text";
+		$test->number = 123;
+		$test->select = 1;
+
+		return $test;
 	}
 	
 	protected function accessControl() {
