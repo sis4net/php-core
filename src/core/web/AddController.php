@@ -2,7 +2,7 @@
 
 abstract class AddController extends FormController {
 
-	protected final function getAcion() {
+	protected final function getAction() {
 		return "add";
 	}
 
