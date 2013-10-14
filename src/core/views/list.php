@@ -1,12 +1,12 @@
-<h3><?php echo $webTable->title; ?></h3>
+<h3><?php echo $lang[$webTable->title]; ?></h3>
 
 <table class="table table-striped table-hover">
 	<thead>
 		<tr>
 			<?php
-			foreach ($webTable->columns; as $column) {
+			foreach ($webTable->columns as $column) {
 			?>
-			<th><?php echo $column->name; ?></th>
+			<th><?php echo $lang[$column->key]; ?></th>
 			<?php
 			}
 			?>
@@ -14,34 +14,54 @@
 		</tr>
 	</thead>
   	<tbody>
+  		<?php
+		foreach ($webTable->list as $data) {
+		?>
   		<tr>
-  			<td>1</td>
-  			<td>AAAA</td>
-  			<td>BBBBB</td>
-  			<td>CCCC</td>
+  			<?php
+			foreach ($webTable->columns as $column) {
+			?>
+  			<td><?php 
+  			$elem = $column->name;
+  			echo $data->$elem; 
+  			
+  			?></td>
+  			<?php
+			}
+			?>
   			<td>
   				<div class="btn-group">
-				  <button class="btn"><i class="icon-refresh"></i></button>
-				  <button class="btn"><i class="icon-user"></i></button>
-				  <button class="btn"><i class="icon-ok"></i></button>
-				  <button class="btn"><i class="icon-off"></i></button>
-				  <button class="btn"><i class="icon-pencil"></i></button>
-				  <button class="btn"><i class="icon-remove"></i></button>
+  					<?php
+					foreach ($webTable->options as $option) {
+					?>
+				  	<a href="<?php echo $site; ?><?php echo $option->url; ?>" title="<?php echo $option->title; ?>" class="btn"><i class="<?php echo $option->icon; ?>"></i></a>
+				 	<?php
+					}
+					foreach ($webTable->dialogs as $dialog) {
+					?>
+					<a  id="delete" url="<?php echo $site; ?><?php echo $dialog->url; ?>" class="btn"><i class="<?php echo $dialog->icon; ?>"></i></a>
+					<?php
+					}
+					?>
 				</div>
   			</td>
   		</tr>
+  		<?php
+		}
+		?>
   	</tbody>
 </table>
 
 <div class="pagination pagination-centered">
   <ul>
-    <li class="disabled"><a href="#">&laquo;</a></li>
-    <li class="disabled"><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-    <li><a href="#">...</a></li>
-    <li><a href="#">&raquo;</a></li>
+    <li  <?php if ($webTable->page == 1) { ?>class="disabled"<?php }?>><a href="?page=<?php echo $webTable->page - 1 ?>">&laquo;</a></li>
+    <?php 
+    for ($i = 1; $i <= $webTable->pages; $i++) {
+    ?>
+    <li <?php if ($i == $webTable->page) { ?>class="disabled"<?php }?>><a href="?page=<?php echo $i ?>"><?php echo $i ?></a></li>
+    <?php 
+    }
+    ?>
+    <li <?php if ($webTable->page == $webTable->pages) { ?>class="disabled"<?php }?>><a href="?page=<?php echo $webTable->page + 1 ?>">&raquo;</a></li>
   </ul>
 </div>

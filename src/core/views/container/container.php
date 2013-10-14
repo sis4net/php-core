@@ -9,22 +9,8 @@
 		<meta name="googlebot" content="noarchive" />	
 		<title><?php echo $lang['PAGE_NAME']; ?> - <?php echo $lang['PAGE_TITLE']; ?></title>
 		<!--  CSS -->
-		<link rel="stylesheet" href="<?php echo $site; ?>css/default.css" />
-		<link rel="stylesheet" href="<?php echo $site; ?>css/ui-lightness/jquery-ui-1.8.20.custom.css" />
-		<link rel="stylesheet" href="<?php echo $site; ?>css/validationEngine.jquery.css" />
-		<link rel="stylesheet" href="<?php echo $site; ?>css/jquery.dataTables.css" /> 	
-		<link rel="stylesheet" href="<?php echo $site; ?>css/jquery.dataTables_themeroller.css" />  
-		<link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700|Yanone+Kaffeesatz:400,200,300,700' rel='stylesheet' type='text/css'>
-		
-		<!-- JS -->
-		<script src="<?php echo $site; ?>js/jquery-1.7.2.min.js"  type="text/javascript"></script>
-		<script src="<?php echo $site; ?>js/jquery-ui-1.8.20.custom.min.js"  type="text/javascript"></script>
-		<script src="<?php echo $site; ?>js/jquery.validationEngine.js" type="text/javascript"></script>
-		<script src="<?php echo $site; ?>js/languages/jquery.validationEngine-<?php echo $lang_site ?>.js" type="text/javascript"></script>		
-		<script src="<?php echo $site; ?>js/jquery.Rut.js" type="text/javascript"></script>
-		<script src="<?php echo $site; ?>js/jquery.dataTables.js" type="text/javascript"></script>
-		<script src="<?php echo $site; ?>js/default.js" type="text/javascript"></script>
-		<script src="<?php echo $site; ?>js/jquery.MetaData.js" type="text/javascript"></script>
+		<link href="<?php echo $site; ?>/css/bootstrap.min.css" rel="stylesheet" media="screen">	
+		<link href="<?php echo $site; ?>/css/bootstrap-responsive.css" rel="stylesheet">
 
 		<!--[if lt IE 9]>
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>

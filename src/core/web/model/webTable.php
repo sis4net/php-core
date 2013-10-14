@@ -8,13 +8,15 @@ class webTable {
 
 	public $columns;
 	
-	public $option;
-	public $dialog;
+	public $options;
+	public $dialogs;
 	
 	public $list;
 
 	public $size;
 	public $pages;
+	
+	public $page;
 
 }
 

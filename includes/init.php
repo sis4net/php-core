@@ -33,6 +33,8 @@ include_once (__LIB_PATH  .'/dao/DAO.php');
 include_once (__LIB_PATH  .'/model/Object.php');
 
 include_once (__LIB_PATH  .'/web/model/webTable.php');
+include_once (__LIB_PATH  .'/web/model/FieldTable.php');
+include_once (__LIB_PATH  .'/web/model/UrlOption.php');
 
 // Se agrega lo propio del proyecto
 $init = __SITE_PATH  .'/../includes/init.php';

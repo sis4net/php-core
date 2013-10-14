@@ -13,4 +13,7 @@ $lang['FOOTER_SITE'] = 'PHP MVC';
 // Paginas
 $lang['INIT_TITLE'] = 'Bienvenido';
 
+//
+$lang['TITLE_LIST'] = 'Listado';
+$lang['INIT_NAME'] = 'Nombre';
 ?>
