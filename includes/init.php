@@ -21,7 +21,10 @@
 
  // Componentes Web
   include_once __LIB_PATH . '/web/' . 'ListController.php';
+  include_once __LIB_PATH . '/web/' . 'Formontroller.php';
   include_once __LIB_PATH . '/web/' . 'AddController.php';
+  include_once __LIB_PATH . '/web/' . 'EditController.php';
+  include_once __LIB_PATH . '/web/' . 'DetailController.php';
 
 /* Classes */
 // Servicios

@@ -8,6 +8,8 @@ class FormData {
 
 	public $url;
 
+	public $data;
+
 }
 
 ?>
