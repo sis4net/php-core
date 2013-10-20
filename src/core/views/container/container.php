@@ -31,8 +31,8 @@
 			<?php 
 			}
 			?>
-				<li><a href="#">About</a></li>
-          		<li><a href="#">Contact</a></li>
+				<li><a href="#">Ejemplos</a></li>
+          		<li><a href="#">Contacto</a></li>
 	        </ul>
 	        <h3 class="text-muted"><?php echo $lang['PAGE_NAME']; ?></h3>
 	      </div>

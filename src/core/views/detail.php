@@ -1,4 +1,4 @@
-<h2><?php echo $lang[$formData->title]; ?></h2>
+<h3><span class="glyphicon glyphicon-ok"></span> <?php echo $lang[$formData->title]; ?></h3>
 
 <form id="formID" role="form" class="form-horizontal well" method="post" >
 <?php
