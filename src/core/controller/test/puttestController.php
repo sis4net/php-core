@@ -10,7 +10,7 @@ class puttestController extends AddController {
 		$this->addField('input', "INIT_NAME", 'input', 30, true);
 		$this->addField('text', "INIT_DESCRIPTION", 'text', 200, false);
 		$this->addField('number', "INIT_NUMBER", 'number', 10, true);
-		$this->addField('select', "INIT_NUMBER", 'select', 0, true, $this->listSelect());
+		$this->addFieldList('select', "INIT_NUMBER", 'select', 0, true, $this->listSelect());
 	}
 
 	private function listSelect() {

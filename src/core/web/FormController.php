@@ -32,12 +32,30 @@ abstract class FormController extends AbstractController {
 		
 		return $action;
 	}
+
+	protected final function addFieldDetail($name, $key) {
+		
+		$elem = new FieldTable($name,$key);
+		$elem->type = 'hidden';
+		
+		$this->fields[] = $elem;
+	}
+
+	protected final function addField($name, $key, $type, $length, $validate) {
+		
+		$elem = new FieldTable($name,$key);
+		$elem->type = $type;
+		$elem->length = $length;
+		$elem->validate = $validate;
+		
+		$this->fields[] = $elem;
+	}
 	
 	/**
 	* Methodo para ingresar los campos a pintar en la Pagina
 	*
 	**/
-	protected final function addField($name, $key, $type, $length, $validate, $list) {
+	protected final function addFieldList($name, $key, $type, $length, $validate, $list) {
 		
 		$elem = new FieldTable($name,$key);
 		$elem->type = $type;

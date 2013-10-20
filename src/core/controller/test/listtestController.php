@@ -19,8 +19,8 @@ class listtestController extends ListController {
 	}
 	
 	protected function setOptions() {
-		$this->addOptions('edit', 'edit', 'icon-refresh');
-		$this->addDialogs('active', 'delete', 'icon-ok');
+		$this->addOptions('edit', 'edit', 'glyphicon-refresh');
+		$this->addDialogs('active', 'delete', 'glyphicon-ok');
 	}
 	
 	protected function accessControl() {

@@ -9,56 +9,56 @@
 		<meta name="googlebot" content="noarchive" />	
 		<title><?php echo $lang['PAGE_NAME']; ?> - <?php echo $lang['PAGE_TITLE']; ?></title>
 		<!--  CSS -->
-		<link href="<?php echo $site; ?>/css/bootstrap.min.css" rel="stylesheet" media="screen">	
-		<link href="<?php echo $site; ?>/css/bootstrap-responsive.css" rel="stylesheet">
+		<link href="<?php echo $site; ?>/dist/css/bootstrap.min.css" rel="stylesheet" media="screen">	
+		<link href="<?php echo $site; ?>/dist/css/bootstrap-theme.css" rel="stylesheet">	
+		<link href="<?php echo $site; ?>/css/default.css" rel="stylesheet">
 
 		<!--[if lt IE 9]>
-		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<script src="<?php echo $site; ?>/assets/js/html5shiv.js"></script>
 		<![endif]-->
+
 	</head>
 	<body>
-	
-	<section id="body">
 
-		<header>			
-			<h2><?php echo $lang['PAGE_NAME']; ?></h2>
-			<div id="homeLogout">
-				<a href="<?php echo $site; ?>indexSite">Inicio</a>
-			<?php 
+		<div class="container">
+	      <div class="header">
+	        <ul class="nav nav-pills pull-right">
+	          <li class="active"><a href="<?php echo $site; ?>indexSite">Inicio</a></li>
+	          <?php 
 			if (isset($sessionSite)) {
 			?>
-				<a href="<?php echo $site; ?>user/logout">Logout</a>
+				<li><a href="<?php echo $site; ?>user/logout">Logout</a></li>
 			<?php 
 			}
 			?>
-			</div>
-		</header>
+				<li><a href="#">About</a></li>
+          		<li><a href="#">Contact</a></li>
+	        </ul>
+	        <h3 class="text-muted"><?php echo $lang['PAGE_NAME']; ?></h3>
+	      </div>
 
-		<section id="content">
-			<!-- Exito -->
-			<section id="alert">
-				<article id="alert_msg"></article>
-			</section>
-			<br>
-			
-			<?php			
+      <div class="row marketing">
+        <?php			
 			include($body);
 			?>
-		</section>
-		<br>
-		<footer>
-		  	<address>
-		  		<?php echo $lang['FOOTER_SITE']; ?>
-		  	</address>
-		</footer>
-		
-		<section id="loading"></section>
-		
-		<section id="dialog-form">
-			<section id="form-data"></section>
-		</section>
-		
-	</section>
+      </div>
+
+      <div class="footer">
+        <p>&copy; <?php echo $lang['FOOTER_SITE']; ?></p>
+      </div>
+
+    </div> <!-- /container -->
+	
+	<!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	<script src="<?php echo $site; ?>/assets/js/jquery-ui-1.10.2.custom.js"  type="text/javascript"></script>
+		<script src="<?php echo $site; ?>/js/jquery.validationEngine.js" type="text/javascript"></script>
+		<script src="<?php echo $site; ?>/js/languages/jquery.validationEngine-<?php echo $lang_site ?>.js" type="text/javascript"></script>
+		<script src="<?php echo $site; ?>/js/jquery.dataTables.js" type="text/javascript"></script>
+		<script src="<?php echo $site; ?>/js/default.js" type="text/javascript"></script>
+		<script src="<?php echo $site; ?>/dist/js/bootstrap.js"  type="text/javascript"></script>
+		<script src="<?php echo $site; ?>/js/jquery.enter.js" type="text/javascript"></script>
 	
 	</body>
 </html>

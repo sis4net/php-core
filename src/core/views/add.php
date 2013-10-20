@@ -1,10 +1,13 @@
-<h2><?php echo $lang[$formData->title]; ?></h2>
+<h3><span class="glyphicon glyphicon-edit"></span> <?php echo $lang[$formData->title]; ?></h3>
 
-<form id="formID" class="form-horizontal form-actions" method="post" action="<?php echo $site . $formData->url; ?>">
+<form id="formID" role="form" class="form-horizontal well" method="post" action="<?php echo $site . $formData->url; ?>">
 <?php
 foreach ($formData->fields as $field) {
   $data = $field->name;
-  $value = $formData->data->$data;
+  $value = "";
+  if (isset($formData->data->$data)) {
+    $value = $formData->data->$data;
+  } 
   if ($field->type == 'hidden') {
 ?>
   <input type="hidden" id="<?php echo $field->name; ?>" name="<?php echo $field->name; ?>" value="<?php echo $value; ?>">
@@ -12,18 +15,18 @@ foreach ($formData->fields as $field) {
   } else {
 
 ?>
-  <div class="control-group">
-    <label class="control-label" for="<?php echo $field->name; ?>"><?php echo $lang[$field->key]; ?></label>
-    <div class="controls">
+  <div class="form-group">
+    <label class="col-lg-2 control-label" for="<?php echo $field->name; ?>"><?php echo $lang[$field->key]; ?></label>
+    <div class="col-lg-10">
     <?php 
     if ($field->type == 'text') {
     ?>
-     <textarea id="<?php echo $field->name; ?>" name="<?php echo $field->name; ?>" placeholder="<?php echo $lang[$field->key]; ?>" class="span5"><?php echo $value; ?></textarea>
+     <textarea id="<?php echo $field->name; ?>" name="<?php echo $field->name; ?>" placeholder="<?php echo $lang[$field->key]; ?>" class="form-control"><?php echo $value; ?></textarea>
    
     <?php 
     } else if ($field->type == 'select') {
     ?>
-     <select id="<?php echo $field->name; ?>" name="<?php echo $field->name; ?>" class="span5">
+     <select id="<?php echo $field->name; ?>" name="<?php echo $field->name; ?>" class="form-control">
       <option value="">...</option>      
       <?php
       foreach ($field->list as $elem) {
@@ -35,7 +38,7 @@ foreach ($formData->fields as $field) {
     </select> <?php 
     } else {
     ?>
-      <input type="text" id="<?php echo $field->name; ?>" name="<?php echo $field->name; ?>" placeholder="<?php echo $lang[$field->key]; ?>" class="span4 <?php if ($field->validate) { ?>validate[required]<?php }?>" maxlength="<?php echo $field->length; ?>" value="<?php echo $value; ?>">
+      <input type="text" id="<?php echo $field->name; ?>" name="<?php echo $field->name; ?>" placeholder="<?php echo $lang[$field->key]; ?>" class="form-control <?php if ($field->validate) { ?>validate[required]<?php }?>" maxlength="<?php echo $field->length; ?>" value="<?php echo $value; ?>">
     <?php 
     }    
     ?>
@@ -45,9 +48,6 @@ foreach ($formData->fields as $field) {
   }
 }
 ?>
-  <div class="control-group">
-    <div class="controls">
-      <button type="button" id="pf_md_btn_crud" class="btn btn-primary"><i class="icon-ok icon-white"></i><?php echo $lang['BUTTON_SAVE']; ?></button>
-    </div>
-  </div>
+
+  <button type="button" id="pf_md_btn_crud" class="btn btn-success"><i class="glyphicon glyphicon-ok"></i> <?php echo $lang['BUTTON_SAVE']; ?></button>
 </form>

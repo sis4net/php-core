@@ -7,10 +7,10 @@ class detailtestController extends DetailController {
 	}
 	
 	protected function setFields() {
-		$this->addField('input', "INIT_NAME");
-		$this->addField('text', "INIT_DESCRIPTION");
-		$this->addField('number', "INIT_NUMBER");
-		$this->addField('select', "INIT_NUMBER");
+		$this->addFieldDetail('input', "INIT_NAME");
+		$this->addFieldDetail('text', "INIT_DESCRIPTION");
+		$this->addFieldDetail('number', "INIT_NUMBER");
+		$this->addFieldDetail('select', "INIT_NUMBER");
 	}
 	
 	protected function loadData() {
