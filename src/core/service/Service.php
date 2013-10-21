@@ -1,5 +1,4 @@
 <?php
-include_once (__LIB_PATH . '/config/config.php');
 /**
  * Servicio Para implementar la Logica de los servicios
  *

@@ -1,5 +1,4 @@
 <?php
-include (__LIB_PATH  .'/application/Connector.php');
 
 class Manager extends Connector 
 {

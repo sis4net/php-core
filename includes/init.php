@@ -1,5 +1,11 @@
 <?php
- include_once (__LIB_PATH . '/config/config.php');
+$config = __SITE_PATH  .'/config/config.php';
+
+if (file_exists($config) == true) {	
+	include_once ($config);
+} else {	
+	include_once (__LIB_PATH . '/config/config.php');
+}
  /*** include the controller class ***/
  include_once __LIB_PATH . '/application/' . 'AbstractController.php';
  include_once __LIB_PATH . '/application/' . 'crudController.php';
@@ -17,6 +23,7 @@
  include_once __LIB_PATH . '/application/' . 'template.class.php';
  
   /*** include the Manager class ***/
+ include_once __LIB_PATH . '/application/' . 'Connector.php';
  include_once __LIB_PATH . '/application/' . 'Manager.class.php';
 
  // Componentes Web
