@@ -40,6 +40,15 @@ abstract class FormController extends AbstractController {
 		
 		$this->fields[] = $elem;
 	}
+	
+	protected final function addFieldDetailList($name, $key, $list) {
+	
+		$elem = new FieldTable($name,$key);
+		$elem->type = 'multiGroupRadio';
+		$elem->list = $list;
+	
+		$this->fields[] = $elem;
+	}
 
 	protected final function addField($name, $key, $type, $length, $validate) {
 		

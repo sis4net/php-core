@@ -47,12 +47,14 @@ foreach ($formData->fields as $field) {
     ?>
     <div class="col-lg-10">
     <input type="checkbox" name="<?php echo $field->name; ?>" id="<?php echo $field->name; ?>" value="1" <?php if ($value == 1) { ?>  checked="checked"<?php }?>>
-    <?php echo $elem->name; ?>
     <?php 
+    	echo $elem->name;
     } else if ($field->type == 'radio') {
+	?>
+	<div class="col-lg-10">
+	<?php 
 		foreach ($field->list as $elem) {
     ?>
-    <div class="col-lg-10">
     <div class="radio">
         <label>
           <input type="radio" name="<?php echo $field->name; ?>" id="<?php echo $field->name; ?>" value="<?php echo $elem->id; ?>" <?php if ($value == $elem->id) { ?>  checked<?php }?>>
@@ -61,6 +63,32 @@ foreach ($formData->fields as $field) {
       </div>
     <?php 
     	} 
+    } else if ($field->type == 'multiGroupRadio') {
+		$father = null;
+		$son = null;
+	?>
+	<div class="col-lg-10">
+	<?php 
+		foreach ($field->list as $option) {
+			if ($father != $option->app) {
+				$father = $option->app;
+	?>
+		<h3><?php echo $option->appName?></h3>
+	<?php 
+			}
+
+			if ($son != $option->module) {
+				$son = $option->module;
+	?>
+	<h4><?php echo $option->modName?></h4>
+	<?php 
+			}
+	?>
+	<label class="checkbox inline">
+  		<input type="checkbox" id="<?php echo $field->name; ?>" name="<?php echo $field->name; ?>[]" value="<?php echo $option->id?>" <?php if (isset($option->packet)) { ?>checked="checked"<?php } ?>> <?php echo $option->optName?>
+	</label>
+	<?php 
+		}
     } else {
     ?>
     <div class="col-lg-7">
