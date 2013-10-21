@@ -11,7 +11,21 @@ class loadtestController extends EditController {
 		$this->addField('input', "INIT_NAME", 'input', 30, true);
 		$this->addField('text', "INIT_DESCRIPTION", 'text', 200, false);
 		$this->addField('number', "INIT_NUMBER", 'number', 10, true);
-		$this->addFieldList('select', "INIT_NUMBER", 'select', 0, true, $this->listSelect());
+		$this->addFieldList('select', "INIT_SELECT", 'select', 0, true, $this->listSelect());
+		$this->addField('checkbox', "INIT_CHECKBOX", 'checkbox', 0, true);
+		$this->addFieldList('radio', "INIT_RADIO", 'radio', 0, true, $this->listRadio());
+	}
+	
+	private function listRadio() {
+		for ($i = 1; $i <= 3; $i++) {
+			$test = new Test();
+			$test->id = $i;
+			$test->name = 'Opcion' . $i;
+	
+			$list[] = $test;
+		}
+	
+		return $list;
 	}
 
 	private function listSelect() {
@@ -33,6 +47,8 @@ class loadtestController extends EditController {
 		$test->text = "Text";
 		$test->number = 123;
 		$test->select = 1;
+		$test->radio = 2;
+		$test->checkbox = 1;
 
 		return $test;
 	}
