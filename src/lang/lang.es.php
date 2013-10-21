@@ -19,6 +19,10 @@ $lang['TITLE_ADD'] = 'Crear';
 $lang['INIT_NAME'] = 'Nombre';
 $lang['INIT_DESCRIPTION'] = 'Descripcion';
 $lang['INIT_NUMBER'] = 'Numero';
+$lang['INIT_SELECT'] = 'Select';
+$lang['INIT_RADIO'] = 'Radio';
+$lang['INIT_CHECKBOX'] = 'CheckBox';
 $lang['BUTTON_SAVE'] = 'Guardar';
+$lang['BUTTON_CANCEL'] = 'Cancelar';
 
 ?>

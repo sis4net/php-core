@@ -8,6 +8,8 @@ class Test {
 	public $text;
 	public $number;
 	public $select;
+	public $radio;
+	public $checkbox;
 	
 }
 

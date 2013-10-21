@@ -35,7 +35,24 @@ foreach ($formData->fields as $field) {
       <?php 
       }    
       ?>
-    </select> <?php 
+    </select>
+    <?php 
+    } else if ($field->type == 'checkbox') {
+    ?>
+    <input type="checkbox" name="<?php echo $field->name; ?>" id="<?php echo $field->name; ?>" value="1" <?php if ($value == 1) { ?>  checked="checked"<?php }?>>
+    <?php echo $elem->name; ?>
+    <?php 
+    } else if ($field->type == 'radio') {
+		foreach ($field->list as $elem) {
+    ?>
+    <div class="radio">
+        <label>
+          <input type="radio" name="<?php echo $field->name; ?>" id="<?php echo $field->name; ?>" value="<?php echo $elem->id; ?>" <?php if ($value == $elem->id) { ?>  checked<?php }?>>
+          <?php echo $elem->name; ?>
+        </label>
+      </div>
+    <?php 
+    	}
     } else {
     ?>
       <input type="text" id="<?php echo $field->name; ?>" name="<?php echo $field->name; ?>" placeholder="<?php echo $lang[$field->key]; ?>" class="form-control <?php if ($field->validate) { ?>validate[required]<?php }?>" maxlength="<?php echo $field->length; ?>" value="<?php echo $value; ?>">
@@ -50,4 +67,5 @@ foreach ($formData->fields as $field) {
 ?>
 
   <button type="button" id="pf_md_btn_crud" class="btn btn-success"><i class="glyphicon glyphicon-ok"></i> <?php echo $lang['BUTTON_SAVE']; ?></button>
+  <button type="button" class="btn btn-default"> <?php echo $lang['BUTTON_CANCEL']; ?></button>
 </form>
