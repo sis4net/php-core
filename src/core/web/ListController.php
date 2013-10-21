@@ -31,7 +31,7 @@ abstract class ListController extends AbstractController {
 			if (isset($_GET['page'])) {
 				$webTable->page = $_GET['page'];
 			}
-			$webTable->pages = 10;
+			$webTable->pages = 5;
 			
 			// Cargamos Data
 			$this->setColumns();
@@ -39,7 +39,9 @@ abstract class ListController extends AbstractController {
 			
 			$webTable->columns = $this->columns;			
 			$webTable->options = $this->options;			
-			$webTable->dialogs = $this->dialogs;
+			$webTable->dialogs = $this->dialogs;		
+			$webTable->keys = $this->setKeys();
+			
 			
 		} catch (Exception $e) {
 			error_log("Ocurrio un error al crear el listado : " + $e->getMessage(), 0);
@@ -68,6 +70,8 @@ abstract class ListController extends AbstractController {
 	protected abstract function setColumns();
 	
 	protected abstract function setOptions();
+	
+	protected abstract function setKeys();
 	
 	protected abstract function getTitle();
 	

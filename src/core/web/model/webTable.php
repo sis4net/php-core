@@ -12,6 +12,8 @@ class webTable {
 	public $dialogs;
 	
 	public $list;
+	
+	public $keys;
 
 	public $size;
 	public $pages;

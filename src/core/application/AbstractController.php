@@ -342,7 +342,7 @@ abstract class AbstractController implements Config {
 	 */
 	final protected function createSession($obj) {
 		session_regenerate_id();
-		session_register(self::site_name . '-login');
+		//session_register(self::site_name . '-login');
 
 		$_SESSION[self::site_name] = $obj;
 
