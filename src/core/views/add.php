@@ -17,16 +17,17 @@ foreach ($formData->fields as $field) {
 ?>
   <div class="form-group">
     <label class="col-lg-2 control-label" for="<?php echo $field->name; ?>"><?php echo $lang[$field->key]; ?></label>
-    <div class="col-lg-10">
     <?php 
     if ($field->type == 'text') {
     ?>
-     <textarea id="<?php echo $field->name; ?>" name="<?php echo $field->name; ?>" placeholder="<?php echo $lang[$field->key]; ?>" class="form-control"><?php echo $value; ?></textarea>
+    <div class="col-lg-10">
+     <textarea id="<?php echo $field->name; ?>" name="<?php echo $field->name; ?>" placeholder="<?php echo $lang[$field->key]; ?>" class="form-control  <?php if ($field->validate) { ?>validate[required]<?php }?>"><?php echo $value; ?></textarea>
    
     <?php 
     } else if ($field->type == 'select') {
     ?>
-     <select id="<?php echo $field->name; ?>" name="<?php echo $field->name; ?>" class="form-control">
+    <div class="col-lg-4">
+     <select id="<?php echo $field->name; ?>" name="<?php echo $field->name; ?>" class="form-control  <?php if ($field->validate) { ?>validate[required]<?php }?>">
       <option value="">...</option>      
       <?php
       foreach ($field->list as $elem) {
@@ -35,16 +36,23 @@ foreach ($formData->fields as $field) {
       <?php 
       }    
       ?>
-    </select>
+    </select> 
+    <?php 
+    } else if ($field->type == 'number') {
+    ?>
+    <div class="col-lg-3">
+    <input type="number" id="<?php echo $field->name; ?>" name="<?php echo $field->name; ?>" placeholder="<?php echo $lang[$field->key]; ?>" class="form-control validate[custom[integer],<?php if ($field->validate) { ?>required<?php }?>]" maxlength="<?php echo $field->length; ?>" value="<?php echo $value; ?>">
     <?php 
     } else if ($field->type == 'checkbox') {
     ?>
+    <div class="col-lg-10">
     <input type="checkbox" name="<?php echo $field->name; ?>" id="<?php echo $field->name; ?>" value="1" <?php if ($value == 1) { ?>  checked="checked"<?php }?>>
     <?php echo $elem->name; ?>
     <?php 
     } else if ($field->type == 'radio') {
 		foreach ($field->list as $elem) {
     ?>
+    <div class="col-lg-10">
     <div class="radio">
         <label>
           <input type="radio" name="<?php echo $field->name; ?>" id="<?php echo $field->name; ?>" value="<?php echo $elem->id; ?>" <?php if ($value == $elem->id) { ?>  checked<?php }?>>
@@ -52,9 +60,10 @@ foreach ($formData->fields as $field) {
         </label>
       </div>
     <?php 
-    	}
+    	} 
     } else {
     ?>
+    <div class="col-lg-7">
       <input type="text" id="<?php echo $field->name; ?>" name="<?php echo $field->name; ?>" placeholder="<?php echo $lang[$field->key]; ?>" class="form-control <?php if ($field->validate) { ?>validate[required]<?php }?>" maxlength="<?php echo $field->length; ?>" value="<?php echo $value; ?>">
     <?php 
     }    
