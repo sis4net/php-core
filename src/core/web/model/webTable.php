@@ -9,7 +9,6 @@ class webTable {
 	public $columns;
 	
 	public $options;
-	public $dialogs;
 	
 	public $list;
 	

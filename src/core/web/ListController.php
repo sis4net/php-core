@@ -4,7 +4,6 @@ abstract class ListController extends AbstractController {
 	
 	private $columns;
 	private $options;
-	private $dialogs;
 	private $filters;
 
 	public final function action() {
@@ -14,7 +13,6 @@ abstract class ListController extends AbstractController {
 		$this->columns = null;
 		$this->options = null;
 		$this->filters = null;
-		$this->dialogs = null;
 		
 		// Paginacion
 		$page = 1;
@@ -38,8 +36,7 @@ abstract class ListController extends AbstractController {
 			$this->setOptions();
 			
 			$webTable->columns = $this->columns;			
-			$webTable->options = $this->options;			
-			$webTable->dialogs = $this->dialogs;		
+			$webTable->options = $this->options;		
 			$webTable->keys = $this->setKeys();
 			
 			
@@ -58,14 +55,31 @@ abstract class ListController extends AbstractController {
 	}
 	
 	protected final function addOptions($name, $url, $icon) {
-		$this->options[] = new UrlOption($name, $url, $icon);
+		$this->options[] = new UrlOption($name, $url, $icon, false);
+	}
+
+	protected final function addOptionsEvaluation($name, $url, $icon, Evaluation $evaluation) {
+		$dialog = new UrlOption($name, $url, $icon, false);
+		$dialog->evaluation = $evaluation;
+		$this->options[] = $dialog;
 	}
 	
 	protected final function addDialogs($name, $url, $icon) {
-		$this->dialogs[] = new UrlOption($name, $url, $icon);
+		$this->options[] = new UrlOption($name, $url, $icon, true);
+	}
+
+	protected final function addDialogsEvaluation($name, $url, $icon, Evaluation $evaluation) {
+		$dialog = new UrlOption($name, $url, $icon, true);
+		$dialog->evaluation = $evaluation;
+		$this->options[] = $dialog;
 	}
 	
-	protected abstract function setList($page, $size);
+	protected final function setList($page, $size) {
+		$service = $this->loadService();
+		return $this->getService($service)->listAll();
+	}
+
+	protected abstract function loadService();
 	
 	protected abstract function setColumns();
 	

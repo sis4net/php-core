@@ -32,6 +32,14 @@ abstract class FormController extends AbstractController {
 		
 		return $action;
 	}
+	
+	protected final function addFieldAjax($name) {
+	
+		$elem = new FieldTable($name,null);
+		$elem->type = 'ajax';
+	
+		$this->fields[] = $elem;
+	}
 
 	protected final function addFieldDetail($name, $key) {
 		
@@ -50,6 +58,14 @@ abstract class FormController extends AbstractController {
 		$this->fields[] = $elem;
 	}
 
+	protected final function addFieldType($name, $key, $type) {
+	
+		$elem = new FieldTable($name,$key);
+		$elem->type = $type;
+	
+		$this->fields[] = $elem;
+	}
+	
 	protected final function addField($name, $key, $type, $length, $validate) {
 		
 		$elem = new FieldTable($name,$key);

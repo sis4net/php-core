@@ -16,6 +16,8 @@
   	<tbody>
   		<?php
 		foreach ($webTable->list as $data) {
+			$elemKey = $webTable->keys;
+			$key = $data->$elemKey;
 		?>
   		<tr>
   			<?php
@@ -33,14 +35,20 @@
   				<div class="btn-group">
   					<?php
 					foreach ($webTable->options as $option) {
+						$show = true;
+						if (isset($option->evaluation)) {
+							$elem = $option->evaluation->param;
+							$value = $data->$elem;
+
+							if ($value != $option->evaluation->value) {
+								$show = false;
+							}
+						}
+						if ($show) {
 					?>
-				  	<a href="<?php echo $site; ?><?php echo $option->url; ?>" title="<?php echo $option->title; ?>" class="btn"><span class="glyphicon <?php echo $option->icon; ?>"></span></a>
+				  	<a <?php if ($option->dialog) { ?>id="delete" url<?php } else {?>href<?php } ?>="<?php echo $site; ?><?php echo $option->url . '/' . $key; ?>" title="<?php echo $option->title; ?>" class="btn"><span class="glyphicon <?php echo $option->icon; ?>"></span></a>
 				 	<?php
-					}
-					foreach ($webTable->dialogs as $dialog) {
-					?>
-					<a  id="delete" url="<?php echo $site; ?><?php echo $dialog->url; ?>" class="btn"><span class="glyphicon <?php echo $dialog->icon; ?>"></span></a>
-					<?php
+				 		}
 					}
 					?>
 				</div>
