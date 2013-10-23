@@ -22,6 +22,10 @@ class listtestController extends ListController {
 		$this->addOptions('edit', 'edit', 'glyphicon-refresh');
 		$this->addDialogs('active', 'delete', 'glyphicon-ok');
 	}
+
+	protected final function setKeys() {
+		return "id";
+	}
 	
 	protected function accessControl() {
 		return false;
