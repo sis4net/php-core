@@ -20,8 +20,10 @@ abstract class FormController extends AbstractController {
 			// Url del Formulario
 			$formData->url = $this->setUrl();
 
-			// Cargamos la Data
-			$formData->data = $this->loadData();
+			if (!$this->create()) {
+				// Cargamos la Data
+				$formData->data = $this->loadData();
+			}
 			
 		} catch (Exception $e) {
 			error_log("Ocurrio un error al crear el listado : " + $e->getMessage(), 0);
@@ -90,6 +92,8 @@ abstract class FormController extends AbstractController {
 		
 		$this->fields[] = $elem;
 	}
+
+	protected abstract function loadService();
 	
 	/**
 	* Methodo desde el cual se deben implementar las llamas a addField()
@@ -119,7 +123,24 @@ abstract class FormController extends AbstractController {
 	* Methodo para cargar la data a Pintar
 	*
 	**/
-	protected abstract function loadData();
+	protected final function loadData() {
+		$service = $this->loadService();
+
+		$app = new Object();
+		$app->id = $this->getId();
+		
+		$data = $this->getService($service)->load($app);
+		
+		return $data;
+	}
+
+	/**
+	*
+	* Methodo que define si es una creacion y no se debe cargar data
+	*/
+	protected  function create() {
+		return false;
+	}
 	
 	protected final  function isGloba() {
 		return true;

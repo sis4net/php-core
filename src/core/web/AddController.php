@@ -6,8 +6,12 @@ abstract class AddController extends FormController {
 		return "add";
 	}
 
-	protected final function loadData() {
+	protected final function loadService() {
 		return null;
+	}
+
+	protected final  function create() {
+		return true;
 	}
 
 }
