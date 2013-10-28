@@ -15,9 +15,10 @@
 	</thead>
   	<tbody>
   		<?php
-		foreach ($webTable->list as $data) {
-			$elemKey = $webTable->keys;
-			$key = $data->$elemKey;
+  		if (count($webTable->list) > 0) {
+			foreach ($webTable->list as $data) {
+				$elemKey = $webTable->keys;
+				$key = $data->$elemKey;
 		?>
   		<tr>
   			<?php
@@ -55,19 +56,34 @@
   			</td>
   		</tr>
   		<?php
+			}
+		} else {
+		?>
+		<tr>
+			<th colspan="<?php echo count($webTable->columns); ?>">
+				<p class="text-center"><?php echo $lang["LIST_NOT_DATA"]; ?></p>
+			</th>
+		</tr>
+		<?php	
 		}
 		?>
   	</tbody>
 </table>
 
-<ul class="pagination">
-<li  <?php if ($webTable->page == 1) { ?>class="disabled"<?php }?>><a href="?page=<?php echo $webTable->page - 1 ?>">&laquo;</a></li>
-<?php 
-for ($i = 1; $i <= $webTable->pages; $i++) {
+<?php
+if (count($webTable->list) > 0) {
 ?>
-<li <?php if ($i == $webTable->page) { ?>class="active"<?php }?>><a href="?page=<?php echo $i ?>"><?php echo $i ?></a></li>
-<?php 
+<ul class="pagination">
+	<li  <?php if ($webTable->page == 1) { ?>class="disabled"<?php }?>><a href="?page=<?php echo $webTable->page - 1 ?>">&laquo;</a></li>
+	<?php 
+	for ($i = 1; $i <= $webTable->pages; $i++) {
+	?>
+	<li <?php if ($i == $webTable->page) { ?>class="active"<?php }?>><a href="?page=<?php echo $i ?>"><?php echo $i ?></a></li>
+	<?php 
+	}
+	?>
+	<li <?php if ($webTable->page == $webTable->pages) { ?>class="disabled"<?php }?>><a href="?page=<?php echo $webTable->page + 1 ?>">&raquo;</a></li>
+</ul>
+<?php
 }
 ?>
-<li <?php if ($webTable->page == $webTable->pages) { ?>class="disabled"<?php }?>><a href="?page=<?php echo $webTable->page + 1 ?>">&raquo;</a></li>
-</ul>
