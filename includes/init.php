@@ -27,11 +27,16 @@ if (file_exists($config) == true) {
  include_once __LIB_PATH . '/application/' . 'Manager.class.php';
 
  // Componentes Web
-  include_once __LIB_PATH . '/web/' . 'ListController.php';
+  include_once __LIB_PATH . '/web/' . 'AbstractFormController.php';
   include_once __LIB_PATH . '/web/' . 'FormController.php';
+  include_once __LIB_PATH . '/web/' . 'AbstractListController.php';
+  include_once __LIB_PATH . '/web/' . 'ListController.php';
   include_once __LIB_PATH . '/web/' . 'AddController.php';
   include_once __LIB_PATH . '/web/' . 'EditController.php';
   include_once __LIB_PATH . '/web/' . 'DetailController.php';
+  include_once __LIB_PATH . '/web/' . 'DetailListController.php';
+  include_once __LIB_PATH . '/web/' . 'AddListController.php';
+  include_once __LIB_PATH . '/web/' . 'EditListController.php';
 
 /* Classes */
 // Servicios
