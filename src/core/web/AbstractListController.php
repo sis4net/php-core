@@ -20,8 +20,12 @@ abstract class AbstractListController extends AbstractFormController {
 		$size = 20;
 		
 		try {
-			// Ejecutamos Logica			
-			$webTable->title = $this->getTitle();
+			// Ejecutamos Logica
+			$title = $this->getTitleList();	
+			if (!isset($title)) {	
+				$title = $this->getTitle();
+			}
+			$webTable->title = $title;
 			
 			$webTable->list = $this->setList($page, $size);
 			
@@ -47,6 +51,14 @@ abstract class AbstractListController extends AbstractFormController {
 		}
 		// Se setea mSg a Mostrar en Pagina
 		$this->setAttribute('webTable',$webTable);
+	}
+
+	/**
+	*
+	* Setea Titulo de Listado
+	*/
+	protected function getTitleList() {
+		return null;
 	}
 
 	/**
