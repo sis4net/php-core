@@ -79,7 +79,6 @@ foreach ($formData->fields as $field) {
     ?>
     <input type="checkbox" name="<?php echo $field->name; ?>" id="<?php echo $field->name; ?>" value="1" <?php if ($value == 1) { ?>  checked="checked"<?php }?>>
     <?php 
-    	echo $elem->name;
     } else if ($field->type == 'radio') {
 		  foreach ($field->list as $elem) {
     ?>
