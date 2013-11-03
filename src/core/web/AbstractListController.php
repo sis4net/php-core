@@ -148,7 +148,9 @@ abstract class AbstractListController extends AbstractFormController {
 	*
 	* Methodo para setear el Key de los Link
 	*/
-	protected abstract function setKeys();
+	protected function setKeys() {
+		return "id";
+	}
 
 }
 
