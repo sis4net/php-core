@@ -93,7 +93,7 @@ abstract class uploadController extends CrudController {
 		return "";
 	}
 	
-	protected function isModal() {
+	protected final function isModal() {
 		return false;
 	}
 }

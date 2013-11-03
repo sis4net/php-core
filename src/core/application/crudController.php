@@ -25,14 +25,28 @@ abstract class CrudController extends AbstractController {
 	 * @all controllers que ejecuta Crud
 	 */
 	protected abstract function crudAction();
+
+	/**
+	*
+	* Setea mensaje por defecto
+	*/
+	protected function getMsg() {
+		return "OPERATION_SUCCESS";
+	}
 	
-	protected abstract function getMsg();
-	
+	/**
+	* Setea que la pagina es un Modal
+	* 
+	*/
 	protected function isModal() {
 		return true;
 	}
 	
-	protected  function isGloba() {
+	/**
+	* Setea que la pagina carga del raiz
+	*
+	*/
+	protected final function isGloba() {
 		return true;
 	}
 	
