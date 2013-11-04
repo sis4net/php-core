@@ -1,4 +1,66 @@
 <h3><span class="glyphicon glyphicon-list"></span> <?php echo $lang[$webTable->title]; ?></h3>
+<?php 
+if (count($webTable->filters) > 0) {
+?>
+<h5><span class="glyphicon glyphicon-search"></span> <?php echo $lang['FIND']; ?></h5>
+<form id="formID" role="form" class="form-horizontal well" method="post" >
+<?php
+foreach ($webTable->filters as $filter) {
+	$colsClass = 'col-lg-10';
+
+	if ($filter->length <= 10) {
+		$colsClass = 'col-lg-2';
+	} else if ($filter->length <= 20) {
+		$colsClass = 'col-lg-4';
+	} else if ($filter->length <= 50) {
+		$colsClass = 'col-lg-5';
+	}else if ($filter->length <= 100) {
+		$colsClass = 'col-lg-6';
+	}
+
+	?>
+	<div class="form-group">
+    	<label class="col-lg-2 control-label" for="<?php echo $filter->name; ?>"><?php if (isset($filter->key)) { echo $lang[$filter->key]; } ?></label>
+    	<div class="<?php echo $colsClass  ?>">
+    	
+ 	<?php 
+  	if ($filter->type == 'select') {
+    ?>
+     <select id="<?php echo $filter->name; ?>" name="<?php echo $filter->name; ?>" class="form-control  <?php if ($filter->validate) { ?>validate[required]<?php }?>">
+      <option value=""><?php echo $lang["SELECT_DATA"]; ?></option>      
+      <?php
+      foreach ($filter->list as $elem) {
+      ?>
+      <option value="<?php echo $elem->id; ?>" <?php if ($elem->id == $value) { echo "selected='selected'"; } ?>><?php echo $elem->name; ?></option>   
+      <?php 
+      }    
+      ?>
+    </select> 
+    <?php 
+  	} else if ($filter->type == 'number') {
+    ?>
+    <input type="number" id="<?php echo $filter->name; ?>" name="<?php echo $filter->name; ?>" placeholder="<?php echo $lang[$filter->key]; ?>" class="form-control validate[custom[integer],<?php if ($filter->validate) { ?>required<?php }?>]" maxlength="<?php echo $filter->length; ?>" value="">
+   <?php 
+  	} else if ($filter->type == 'date') {
+	?>
+<input type="date" id="<?php echo $filter->name; ?>" name="<?php echo $filter->name; ?>" placeholder="<?php echo $lang[$filter->key]; ?>" class="form-control <?php if ($filter->validate) { ?>validate[required]<?php }?>" maxlength="<?php echo $filter->length; ?>" value="">
+<?php 
+  } else {
+  ?>
+      <input type="text" id="<?php echo $filter->name; ?>" name="<?php echo $filter->name; ?>" placeholder="<?php echo $lang[$filter->key]; ?>" class="form-control <?php if ($filter->validate) { ?>validate[required]<?php }?>" maxlength="<?php echo $filter->length; ?>" value="">
+  <?php 
+  }    
+  ?>   	
+		</div>
+	</div>
+<?php 
+}
+?>
+	<button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i> <?php echo $lang['BUTTON_FIND']; ?></button>
+</form>
+<?php 
+}
+?>
 
 <table class="table table-striped table-hover  table-condensed">
 	<thead>

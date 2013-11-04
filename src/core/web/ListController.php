@@ -15,6 +15,14 @@ abstract class ListController extends AbstractListController {
 	protected final function getAction() {
 		return "list";
 	}
+	
+	/**
+	 * Reescribir si se desea implementar filtros
+	 * 
+	 */
+	protected function setFilters() {
+		
+	}
 
 }
 ?>

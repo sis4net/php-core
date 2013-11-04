@@ -26,11 +26,13 @@ abstract class AbstractListController extends AbstractFormController {
 			
 			
 			// Cargamos Data
+			$this->setFilters();
 			$this->setColumns();
 			$this->setOptions();
 			
 			$webTable->columns = $this->columns;			
-			$webTable->options = $this->options;		
+			$webTable->options = $this->options;			
+			$webTable->filters = $this->filters;		
 			$webTable->keys = $this->setKeys();
 			
 			
@@ -64,6 +66,31 @@ abstract class AbstractListController extends AbstractFormController {
 	*/
 	protected final function isList() {
 		return true;
+	}
+	
+	protected final function addFilter($name, $key, $type, $length, $required) {
+	
+		$elem = new FieldTable($name,$key);
+		$elem->type = $type;
+		$elem->length = $length;
+		$elem->validate = $required;
+	
+		$this->filters[] = $elem;
+	}
+	
+	/**
+	 * Methodo para ingresar los campos a pintar en la Pagina
+	 *
+	 **/
+	protected final function addFilterList($name, $key, $type, $length, $validate, $list) {
+	
+		$elem = new FieldTable($name,$key);
+		$elem->type = $type;
+		$elem->length = $length;
+		$elem->validate = $validate;
+		$elem->list = $list;
+	
+		$this->filters[] = $elem;
 	}
 	
 	protected final function addColumns($name, $key) {
@@ -162,6 +189,13 @@ abstract class AbstractListController extends AbstractFormController {
 	*
 	*/
 	protected abstract function setOptions();
+	
+	/**
+	 *
+	 * Methodo para setear las Filtros
+	 *
+	 */
+	protected abstract function setFilters();
 	
 	/**
 	*
