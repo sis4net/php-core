@@ -147,7 +147,7 @@ abstract class AbstractFormController extends AbstractController {
 	* Methodo para cargar la data a Pintar
 	*
 	**/
-	protected final function loadData() {
+	protected function loadData() {
 		$service = $this->loadService();
 
 		$app = new Object();
