@@ -9,8 +9,10 @@
 			<th><?php echo $lang[$column->key]; ?></th>
 			<?php
 			}
+			if (count($webTable->options) > 0) {
 			?>
 			<th>&nbsp;</th>
+			<?php } ?>
 		</tr>
 	</thead>
   	<tbody>
@@ -31,6 +33,7 @@
   			?></td>
   			<?php
 			}
+			if (count($webTable->options) > 0) {
 			?>
   			<td>
   				<div class="btn-group">
@@ -54,6 +57,9 @@
 					?>
 				</div>
   			</td>
+  			<?php 
+  			}
+  			?>
   		</tr>
   		<?php
 			}
@@ -71,7 +77,7 @@
 </table>
 
 <?php
-if (count($webTable->list) > 0) {
+if ($webTable->pages > 1) {
 ?>
 <ul class="pagination">
 	<li  <?php if ($webTable->page == 1) { ?>class="disabled"<?php }?>><a href="?page=<?php echo $webTable->page - 1 ?>">&laquo;</a></li>

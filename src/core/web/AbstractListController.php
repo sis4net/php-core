@@ -9,17 +9,14 @@ abstract class AbstractListController extends AbstractFormController {
 	private $filters;
 
 	protected final function actionList() {
-		$webTable = new webTable();
 		// Limpiamos data
 		$this->columns = null;
 		$this->options = null;
 		$this->filters = null;
 		
-		// Paginacion
-		$page = 1;
-		$size = 20;
-		
 		try {
+			// Pintamos Listado Paginado
+			$webTable = $this->setList();
 			// Ejecutamos Logica
 			$title = $this->getTitleList();	
 			if (!isset($title)) {	
@@ -27,14 +24,6 @@ abstract class AbstractListController extends AbstractFormController {
 			}
 			$webTable->title = $title;
 			
-			$webTable->list = $this->setList($page, $size);
-			
-			// Paginacion
-			$webTable->page = 1;
-			if (isset($_GET['page'])) {
-				$webTable->page = $_GET['page'];
-			}
-			$webTable->pages = 5;
 			
 			// Cargamos Data
 			$this->setColumns();
@@ -105,14 +94,44 @@ abstract class AbstractListController extends AbstractFormController {
 	* Methodo que carga la informacion que se pinta en la tabla
 	*
 	*/
-	private function setList($page, $size) {
+	private function setList() {
+		// Creamos Listado
+		$webTable = new webTable();
+		
+		$total = 0;
+		$list = null;
+		// Pagina
+		$size = 10;
+		$page = 1;
+		if (isset($_GET['page'])) {
+			$page = $_GET['page'];
+		}
+		// Calculamos init
+		$init = 0;
+		$end = $size * $page;
+		
+		if ($page > 1) {
+			$init = $end - $size;
+		}
 		// Verificamos si es custom
 		if ($this->listCustom()) {
-			return $this->setListCustom($page, $size);
+			$list = $this->setListCustom($init, $size);
+			
+			$total = count($list);
 		} else {
 			$service = $this->loadService();
-			return $this->getService($service)->listAll();
+			// Obtenemos el Total de Registros
+			$total = count($this->getService($service)->listAll());
+			// Obtenemos el Paginado
+			$list = $this->getService($service)->listPaginated($init, $size);
 		}
+		$webTable->list = $list;
+		// Paginacion		
+		$webTable->page = $page;
+		$webTable->total = $total;
+		$webTable->pages = ceil($total / $size);
+		
+		return $webTable;
 	}
 
 	/**

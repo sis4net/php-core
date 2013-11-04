@@ -84,6 +84,11 @@ class Service implements Config {
 	 * Methodos por Defecto de los Servicios
 	 *
 	 */
+	
+	public function listPaginated($init, $size) {
+		return $this->dao->listPaginated($init, $size);
+	}
+	
 	public function listAll() {
 		return $this->dao->listAll();
 	}

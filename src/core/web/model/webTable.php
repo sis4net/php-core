@@ -18,6 +18,8 @@ class webTable {
 	public $pages;
 	
 	public $page;
+	
+	public $total;
 
 }
 
