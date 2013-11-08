@@ -21,7 +21,7 @@ foreach ($formData->fields as $field) {
       $colsClass = 'col-lg-4';
     } else if ($field->length <= 50) {
       $colsClass = 'col-lg-5';
-    }else if ($field->length <= 100) {
+    } else if ($field->length <= 100) {
       $colsClass = 'col-lg-6';
     }
 
@@ -61,10 +61,6 @@ foreach ($formData->fields as $field) {
     </select> 
     <?php 
       }
-  } else if ($field->type == 'number') {
-    ?>
-    <input type="number" id="<?php echo $field->name; ?>" name="<?php echo $field->name; ?>" placeholder="<?php echo $lang[$field->key]; ?>" class="form-control validate[custom[integer],<?php if ($field->validate) { ?>required<?php }?>]" maxlength="<?php echo $field->length; ?>" value="<?php echo $value; ?>">
-   <?php 
   } else if ($field->type == 'detail') {
     ?>
     <p class="form-control-static">
@@ -118,8 +114,36 @@ foreach ($formData->fields as $field) {
 <input type="date" id="<?php echo $field->name; ?>" name="<?php echo $field->name; ?>" placeholder="<?php echo $lang[$field->key]; ?>" class="form-control <?php if ($field->validate) { ?>validate[required]<?php }?>" maxlength="<?php echo $field->length; ?>" value="<?php echo $value; ?>">
 <?php 
   } else {
+    $type = "text";
+    $validation = "validate[";
+    $val = false;
+
+    if ($field->validate) {
+      $validation .= "required";
+      $val = true;
+    }
+
+    if ($field->type == 'number') {
+      $type = "number";
+
+      if ($val) {
+        $validation .= ",";
+      }
+      $validation .= "custom[integer]";
+    } else if ($field->type == 'email') {
+      $type = "email";
+      if ($val) {
+        $validation .= ",";
+      }
+      $validation .= "custom[email]";
+    } else if ($field->type == 'password') {
+      $type = "password";
+    }
+    $validation .= "]";
+
+
   ?>
-      <input type="text" id="<?php echo $field->name; ?>" name="<?php echo $field->name; ?>" placeholder="<?php echo $lang[$field->key]; ?>" class="form-control <?php if ($field->validate) { ?>validate[required]<?php }?>" maxlength="<?php echo $field->length; ?>" value="<?php echo $value; ?>">
+    <input type="<?php echo $type; ?>" id="<?php echo $field->name; ?>" name="<?php echo $field->name; ?>" placeholder="<?php echo $lang[$field->key]; ?>" class="form-control <?php echo $validation; ?>" maxlength="<?php echo $field->length; ?>" value="<?php echo $value; ?>">
   <?php 
   }    
   ?>
@@ -129,7 +153,10 @@ foreach ($formData->fields as $field) {
   }
 }
 ?>
-
-  <button type="button" id="pf_md_btn_crud" class="btn btn-success"><i class="glyphicon glyphicon-ok"></i> <?php echo $lang['BUTTON_SAVE']; ?></button>
-  <button type="button" class="btn btn-default"> <?php echo $lang['BUTTON_CANCEL']; ?></button>
+<div class="form-group">
+  <div class="col-lg-offset-2 col-lg-10">
+    <button type="button" id="pf_md_btn_crud" class="btn btn-success"><i class="glyphicon glyphicon-ok"></i> <?php echo $lang['BUTTON_SAVE']; ?></button>
+    <button type="button" class="btn btn-default"> <?php echo $lang['BUTTON_CANCEL']; ?></button>
+  </div>
+</div>
 </form>

@@ -111,11 +111,14 @@ abstract class AbstractController implements Config {
 
 			$error = false;
 			$this->logDebug('Verificamos si necesita Acceso');
+			// Verificamos si necesita Acceso
 			if ($this->accessControl()) {
 				$this->logDebug('Verificamos si esta Logeado');
+				// Verificamos si esta Logeado
 				if ($this->isLogin()) {
 					$this->logDebug('Verificamos si es Dueños y Administrador');
-					if ($this->isOwn() && !$this->isAdmin()) {
+					// Verificamos si es Dueños y Administrador
+					if ($this->isOwn()) {
 						// Guardamos Data para validar si es dueño
 						$this->logDebug('Guardamos Data para validar si es dueño');
 						$this->setOwnData();
@@ -124,32 +127,26 @@ abstract class AbstractController implements Config {
 						$own = $this->getOwn();
 							
 						if (!$own) {
-							$this->logDebug('No posee permiso para esta opcion');
 							throw new Exception("No posee permiso para esta opcion.");
 						}
 							
-					} else if ($this->onlyAdmin()) {
-						$this->logDebug('Verificamos si es un Administrador');
-						// Verificamos si es un Administrador
-						if (!$this->isAdmin()) {
-							throw new Exception("Acceso No Autorizado.[A]");
+					} 
+					// Validamos si no necesita validar seguridad de acceso
+					if (!$this->isFreeAccess()) {
+						// Validamos Seguridad de Acceso
+						if (!$this->hasAccess($this->getOption())) {
+							throw new Exception("No posee permiso para esta opcion.[P]");
 						}
-					} else if ($this->isClient()) {
-						$this->logDebug('Verificamos si es Cliente');
-						if (!$this->accessClient()) {
-							throw new Exception("Acceso No Autorizado.[C]");
-						}
+						// Creamos navBar
+						$this->navbar();
 					}
-				} else {
-					$this->logDebug('Debe Ingresar al Sitio');
+				} else {					
 					throw new Exception("Debe Ingresar al Sitio.");
 				}
 			}
-			$this->logDebug('Cargamos Action de Controller');
-			// Cargamos Pagina
+			// Cargamos Action de Controller
 			$action = $this->action();
 			
-			$this->logDebug('Cargamos logica de sitios de inicio');
 			// Cargamos logica de sitios
 			$this->indexSite();
 
@@ -197,6 +194,73 @@ abstract class AbstractController implements Config {
 			header("Location: http://$host$uri/$action");
 		}
 
+	}
+
+	/**
+	* Methodo que genera el NavBar para el Sitio
+	*
+	*/
+	private function navbar() {
+		$navBar = null;
+		if (!$this->isFreeAccess()) {
+			// Obtenemos Opcion seleccionada
+			$option = $this->getOption();
+			// Obtenemos la Session del Usuario
+			$user = $this->getUserSession();
+			// Verificamos si es una opcion de Inicio
+			if (!isset($_GET['index'])) {
+				// Verificamos si existe Nav en Session
+				if (isset($user->navBar)) {
+					// Almacenamos Nav guardada
+					$navBar = $user->navBar;
+				}
+			} else {				
+				$navBar = Array();
+			}
+			if (isset($navBar)) {
+				// Verificamos si opcion seleccionada se encuentra en navegacion
+				if (!in_array($option, $navBar)) {
+					// Se guarda opcione 
+					$navBar[] = $option;
+				}
+				// Guardamos Nav en Session
+				$user->navBar = $navBar;
+			}
+		} 
+		// Seteamos Nav para ser usada en la Pagina
+		$this->setAttribute("navBar", $navBar);
+	}
+
+	/**
+	*
+	* Methodo para verificar si se necesita validar el acceso a la opcion
+	* o es de libre acceso para todos los perfiles
+	*
+	*/
+	protected function isFreeAccess() {
+		return false;
+	}
+
+	/**
+	*
+	* Methodo para setear el Identificador de la Opcion
+	*
+	*/
+	protected function getOption() {
+		throw new Exception("Debe Ingresar una Opcion para Verificar Acceso.");
+	}
+
+	/**
+	* Methodo que se debe implementar como final
+	* para validar acceso a un Action
+	*
+	*/
+	protected function hasAccess($option) {
+		$options = $this->getUserSession()->options;
+		if (in_array($option, $options)) {
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -306,13 +370,6 @@ abstract class AbstractController implements Config {
 	}
 
 	/**
-	 * Methodo para validar que solo pueden entrar administradores
-	 */
-	protected function onlyAdmin() {
-		return true;
-	}
-
-	/**
 	 * Methodo para validar que no entren los clientes
 	 */
 	protected function accessClient() {
@@ -340,7 +397,7 @@ abstract class AbstractController implements Config {
 	 * Methodo que crea la session para el Grupo
 	 * @param $obj
 	 */
-	final protected function createSession($obj) {
+	final protected function createSession(UserSession $obj) {
 		session_regenerate_id();
 		//session_register(self::site_name . '-login');
 
@@ -392,39 +449,6 @@ abstract class AbstractController implements Config {
 			$user = $session;
 		}
 		return $user;
-	}
-
-	/**
-	 * Methodo que valida si es Administrador
-	 * @return boolean
-	 */
-	final protected function isAdmin() {
-		$user = $this->getUserSession();
-		if ($user != null) {
-			$profile = self::profileType;
-			if (isset($user->$profile)) {
-				if ($user->$profile == 1) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-
-	/**
-	 * Methodo que valida si es Cliente
-	 */
-	final protected function isClient() {
-		$user = $this->getUserSession();
-		if ($user != null) {
-			$profile = self::profileType;
-			if (isset($user->$profile)) {
-				if ($user->$profile == 3) {
-					return true;
-				}
-			}
-		}
-		return false;
 	}
 
 	private function getUrl() {

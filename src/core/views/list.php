@@ -56,7 +56,11 @@ foreach ($webTable->filters as $filter) {
 <?php 
 }
 ?>
-	<button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i> <?php echo $lang['BUTTON_FIND']; ?></button>
+	<div class="form-group">
+  		<div class="col-lg-offset-2 col-lg-10">
+			<button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i> <?php echo $lang['BUTTON_FIND']; ?></button>
+		</div>
+	</div>
 </form>
 <?php 
 }
@@ -98,26 +102,24 @@ foreach ($webTable->filters as $filter) {
 			if (count($webTable->options) > 0) {
 			?>
   			<td>
-  				<div class="btn-group">
-  					<?php
-					foreach ($webTable->options as $option) {
-						$show = true;
-						if (isset($option->evaluation)) {
-							$elem = $option->evaluation->param;
-							$value = $data->$elem;
+				<?php
+				foreach ($webTable->options as $option) {
+					$show = true;
+					if (isset($option->evaluation)) {
+						$elem = $option->evaluation->param;
+						$value = $data->$elem;
 
-							if ($value != $option->evaluation->value) {
-								$show = false;
-							}
+						if ($value != $option->evaluation->value) {
+							$show = false;
 						}
-						if ($show) {
-					?>
-				  	<a <?php if ($option->dialog) { ?>id="delete" url<?php } else {?>href<?php } ?>="<?php echo $site; ?><?php echo $option->url . '/' . $key; ?>" title="<?php echo $option->title; ?>" class="btn"><span class="glyphicon <?php echo $option->icon; ?>"></span></a>
-				 	<?php
-				 		}
 					}
-					?>
-				</div>
+					if ($show) {
+				?>
+			  	<a <?php if ($option->dialog) { ?>id="delete" url<?php } else {?>href<?php } ?>="<?php echo $site; ?><?php echo $option->url . '/' . $key; ?>" data-toggle="tooltip" data-placement="top" title="<?php echo $lang['tooltip.'. $option->name]; ?>"><span class="glyphicon <?php echo $option->icon; ?>"></span></a>
+			 	<?php
+			 		}
+				}
+				?>
   			</td>
   			<?php 
   			}
