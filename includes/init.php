@@ -54,6 +54,7 @@ include_once (__LIB_PATH  .'/web/model/webTable.php');
 include_once (__LIB_PATH  .'/web/model/FormData.php');
 include_once (__LIB_PATH  .'/web/model/FieldTable.php');
 include_once (__LIB_PATH  .'/web/model/UrlOption.php');
+include_once (__LIB_PATH  .'/web/model/Condition.php');
 include_once (__LIB_PATH  .'/web/model/Evaluation.php');
 
 // Se agrega lo propio del proyecto

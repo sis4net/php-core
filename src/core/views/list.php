@@ -107,15 +107,35 @@ foreach ($webTable->filters as $filter) {
 					$show = true;
 					if (isset($option->evaluation)) {
 						$elem = $option->evaluation->param;
+						$condition = $option->evaluation->condition;
 						$value = $data->$elem;
-
-						if ($value != $option->evaluation->value) {
-							$show = false;
+						$show = false;
+						switch ($condition) {
+						    case "eq":						        
+								if ($value == $option->evaluation->value) {
+									$show = true;
+								}
+						        break;
+						    case "neq":
+						        if ($value != $option->evaluation->value) {
+									$show = true;
+								}
+						        break;
+						    case "higher":
+						        if ($value > $option->evaluation->value) {
+									$show = true;
+								}
+						        break;
+						    case "less":
+						        if ($value < $option->evaluation->value) {
+									$show = true;
+								}
+						        break;
 						}
 					}
 					if ($show) {
 				?>
-			  	<a <?php if ($option->dialog) { ?>id="delete" url<?php } else {?>href<?php } ?>="<?php echo $site; ?><?php echo $option->url . '/' . $key; ?>" data-toggle="tooltip" data-placement="top" title="<?php echo $lang['tooltip.'. $option->name]; ?>"><span class="glyphicon <?php echo $option->icon; ?>"></span></a>
+			  	<a <?php if ($option->dialog) { ?>id="delete" href="#" url<?php } else {?>href<?php } ?>="<?php echo $site; ?><?php echo $option->url . '/' . $key; ?>" data-toggle="tooltip" data-placement="top" title="<?php echo $lang['tooltip.'. $option->name]; ?>"><span class="glyphicon <?php echo $option->icon; ?>"></span></a>
 			 	<?php
 			 		}
 				}
