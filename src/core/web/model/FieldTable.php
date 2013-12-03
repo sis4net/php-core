@@ -8,6 +8,7 @@ class FieldTable {
 	public $length;
 	public $validate;
 	public $list;
+	public $ajax = false;
 	
 	function __construct($name, $key) {
 		$this->name = $name;

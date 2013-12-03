@@ -219,9 +219,9 @@ abstract class AbstractController implements Config {
 			}
 			if (isset($navBar)) {
 				// Verificamos si opcion seleccionada se encuentra en navegacion
-				if (!in_array($option, $navBar)) {
+				if (!$this->existOptionNav($option, $navBar)) {
 					// Se guarda opcione 
-					$navBar[] = $option;
+					$navBar[] = $this->getAppOption($user, $option);
 				}
 				// Guardamos Nav en Session
 				$user->navBar = $navBar;
@@ -229,6 +229,33 @@ abstract class AbstractController implements Config {
 		} 
 		// Seteamos Nav para ser usada en la Pagina
 		$this->setAttribute("navBar", $navBar);
+	}
+
+	/**
+	* Methodo que verifica si existe option en Nav
+	*/
+	private function existOptionNav($option, $navBar) {
+		foreach ($navBar as $nav) {
+			if ($nav->code == $option) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	* Methodo que optiene el Objeto de Opciones por el Code
+	*/
+	private function getAppOption($session, $option) {
+		foreach ($session->applications as $app) {
+			foreach ($app->modules as $mod) {
+				foreach ($mod->options as $opt) {
+					if ($opt->code == $option) {
+						return $opt;
+					}
+				}
+			}
+		}
 	}
 
 	/**

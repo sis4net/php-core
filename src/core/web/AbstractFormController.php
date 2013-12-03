@@ -108,6 +108,25 @@ abstract class AbstractFormController extends AbstractController {
 	}
 
 	/**
+	* Methodo para ingresar los campos a pintar en la Pagina
+	*
+	**/
+	protected final function addFieldListAjax($name, $key, $type, $length, $validate, $list, $nameAjax) {
+		
+		$elem = new FieldTable($name,$key);
+		$elem->type = $type;
+		$elem->length = $length;
+		$elem->validate = $validate;
+		$elem->list = $list;
+		$elem->ajax = true;
+		
+		$this->fields[] = $elem;
+
+		// Agregamos Ajax
+		$this->addFieldAjax($nameAjax);
+	}
+
+	/**
 	*
 	* Methodo para implementar logica de los listados
 	*/
