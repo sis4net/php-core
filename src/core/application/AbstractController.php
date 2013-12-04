@@ -255,7 +255,9 @@ abstract class AbstractController implements Config {
 					}
 					if (isset($opt->option)) {
 						foreach ($opt->option as &$optSon) {
-							return $optSon;
+							if ($optSon->code == $option) {
+								return $optSon;
+							}
 						}
 					}
 				}

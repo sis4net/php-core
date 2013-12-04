@@ -90,6 +90,7 @@ class Service implements Config {
 		$appNew = null;
 		$modNew = null;
 		$optNew = null;
+
 		foreach ($opts as &$opt) {
 			if ($appNew !=  $opt->app) {
 				if (isset($app)) {
@@ -117,8 +118,8 @@ class Service implements Config {
 				$optionSon = new Option();
 				$optionSon->id = $opt->id;
 				$optionSon->name = $opt->optName;				
-				if (isset($opt->check)) {
-					$optionSon->check = $opt->check;
+				if (isset($opt->selected)) {
+					$optionSon->check = $opt->selected;
 				}
 				if (isset($opt->url)) {
 					$optionSon->url = $opt->url;
@@ -135,8 +136,8 @@ class Service implements Config {
 				$option = new Option();
 				$option->id = $opt->id;
 				$option->name = $opt->optName;
-				if (isset($opt->check)) {
-					$option->check = $opt->check;
+				if (isset($opt->selected)) {
+					$option->check = $opt->selected;
 				}
 				if (isset($opt->url)) {
 					$option->url = $opt->url;
@@ -163,8 +164,8 @@ class Service implements Config {
 	 *
 	 */
 	
-	public function listPaginated($init, $size) {
-		return $this->dao->listPaginated($init, $size);
+	public function listPaginated($init, $size, $filter) {
+		return $this->dao->listPaginated($init, $size, $filter);
 	}
 	
 	public function listAll() {

@@ -15,6 +15,8 @@ abstract class AbstractListController extends AbstractFormController {
 		$this->filters = null;
 		
 		try {
+			// COnfiguramos Filtro
+			$this->setFilters();
 			// Pintamos Listado Paginado
 			$webTable = $this->setList();
 			// Ejecutamos Logica
@@ -26,7 +28,6 @@ abstract class AbstractListController extends AbstractFormController {
 			
 			
 			// Cargamos Data
-			$this->setFilters();
 			$this->setColumns();
 			$this->setOptions();
 			
@@ -140,6 +141,8 @@ abstract class AbstractListController extends AbstractFormController {
 		if ($page > 1) {
 			$init = $end - $size;
 		}
+		// Obtenemos Data de Filtros
+		$dataFilter = $this->getFilterData();
 		// Verificamos si es custom
 		if ($this->listCustom()) {
 			$list = $this->setListCustom($init, $size);
@@ -150,7 +153,7 @@ abstract class AbstractListController extends AbstractFormController {
 			// Obtenemos el Total de Registros
 			$total = count($this->getService($service)->listAll());
 			// Obtenemos el Paginado
-			$list = $this->getService($service)->listPaginated($init, $size);
+			$list = $this->getService($service)->listPaginated($init, $size, $dataFilter);
 		}
 		$webTable->list = $list;
 		// Paginacion		
@@ -159,6 +162,32 @@ abstract class AbstractListController extends AbstractFormController {
 		$webTable->pages = ceil($total / $size);
 		
 		return $webTable;
+	}
+
+	/**
+	* Methodo que obtiene los Valores de los Filtros configurados
+	*/
+	private function getFilterData() {
+		$filtros = $this->filters;
+
+		$data = array();
+		// Verificamos si existen filtros configurados
+		if (isset($this->filters)) {
+			// Recorremos los filtros
+			foreach ($this->filters as $filter) {
+				// Verificamos si se envio data
+				if (isset($_POST[$filter->name])) {
+					// Obtenemos Valor
+					$value = $_POST[$filter->name];
+					if (!empty($value)) {
+						// Guardamos en Arreglo
+						$data[$filter->name] = $value;	
+					}
+				}
+			}
+		}
+
+		return $data;
 	}
 
 	/**
