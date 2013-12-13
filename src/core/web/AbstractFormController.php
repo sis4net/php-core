@@ -64,6 +64,15 @@ abstract class AbstractFormController extends AbstractController {
 		
 		$this->fields[] = $elem;
 	}
+
+	protected final function addFieldDetailValue($name, $key, $value) {
+		
+		$elem = new FieldTable($name,$key);
+		$elem->type = 'hidden';
+		$elem->value = $value;
+		
+		$this->fields[] = $elem;
+	}
 	
 	protected final function addFieldDetailList($name, $key, $list) {
 	
