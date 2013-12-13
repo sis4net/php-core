@@ -24,6 +24,21 @@ class DAO {
 	}
 
 	/**
+	 * Methodo que Retorna Un Listado Paginado
+	 * @param unknown_type $query
+	 * @throws Exception
+	 */
+	protected function listDataPaginated($sql, $init, $size) {
+		$sql .= " LIMIT %s, %s";
+	
+		$query =  sprintf($sql,
+				$this->real_escape_string($init),
+				$this->real_escape_string($size));
+
+		return $this->listData($query);
+	}
+
+	/**
 	 * Methodo que Retorna Un Listado
 	 * @param unknown_type $query
 	 * @throws Exception
@@ -35,7 +50,7 @@ class DAO {
 
 		$list = array();
 
-		while ($row = mysqli_fetch_object($result, 'User')) {
+		while ($row = mysqli_fetch_object($result, 'Object')) {
 			$list[] = $row;
 		}
 
@@ -103,7 +118,7 @@ class DAO {
 	protected function loadData($query) {
 		$result = $this->db->query($query);
 
-		return mysqli_fetch_object($result, 'User');
+		return mysqli_fetch_object($result, 'Object');
 	}
 
 }
