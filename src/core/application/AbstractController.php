@@ -220,8 +220,10 @@ abstract class AbstractController implements Config {
 			if (isset($navBar)) {
 				// Verificamos si opcion seleccionada se encuentra en navegacion
 				if (!$this->existOptionNav($option, $navBar)) {
-					// Se guarda opcione 
+					// Se guarda opcion
 					$navBar[] = $this->getAppOption($user, $option);
+				} else {
+					$navBar =$this->delOptionNav($option, $navBar);
 				}
 				// Guardamos Nav en Session
 				$user->navBar = $navBar;
@@ -235,12 +237,36 @@ abstract class AbstractController implements Config {
 	* Methodo que verifica si existe option en Nav
 	*/
 	private function existOptionNav($option, $navBar) {
+		// Recorremos Arreglo
 		foreach ($navBar as $nav) {
+			// verificamos si existe
 			if ($nav->code == $option) {
 				return true;
 			}
 		}
-		return false;
+		return false ;
+	}
+
+	/**
+	* Methodo que borra elementos de la navegacion
+	*/
+	private function delOptionNav($option, $navBar) {
+		$exist = false;
+		// Recorremos Arreglo
+		for($i = 0; $i < count($navBar); ++$i) {
+			// Borramos si existe
+			if ($exist) {
+				unset($navBar[$i]);
+				break;
+			}
+			// Obtenemos Objeto Guardado
+			$nav = $navBar[$i];
+			// verificamos si existe
+			if ($nav->code == $option) {
+				$exist = true;
+			}
+		}
+		return $navBar;
 	}
 
 	/**
