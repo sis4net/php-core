@@ -98,22 +98,22 @@ abstract class AbstractListController extends AbstractFormController {
 		$this->columns[] = new FieldTable($name,$key);
 	}
 	
-	protected final function addOptions($name, $url, $icon) {
-		$this->options[] = new UrlOption($name, $url, $icon, false);
+	protected final function addOptions($option, $name, $url, $icon) {
+		$this->options[] = new UrlOption($this->validateAccess($option), $name, $url, $icon, false);
 	}
 
-	protected final function addOptionsEvaluation($name, $url, $icon, Evaluation $evaluation) {
-		$dialog = new UrlOption($name, $url, $icon, false);
+	protected final function addOptionsEvaluation($option, $name, $url, $icon, Evaluation $evaluation) {
+		$dialog = new UrlOption($this->validateAccess($option), $name, $url, $icon, false);
 		$dialog->evaluation = $evaluation;
 		$this->options[] = $dialog;
 	}
 	
-	protected final function addDialogs($name, $url, $icon) {
-		$this->options[] = new UrlOption($name, $url, $icon, true);
+	protected final function addDialogs($option, $name, $url, $icon) {
+		$this->options[] = new UrlOption($this->validateAccess($option), $name, $url, $icon, true);
 	}
 
-	protected final function addDialogsEvaluation($name, $url, $icon, Evaluation $evaluation) {
-		$dialog = new UrlOption($name, $url, $icon, true);
+	protected final function addDialogsEvaluation($option, $name, $url, $icon, Evaluation $evaluation) {
+		$dialog = new UrlOption($this->validateAccess($option), $name, $url, $icon, true);
 		$dialog->evaluation = $evaluation;
 		$this->options[] = $dialog;
 	}

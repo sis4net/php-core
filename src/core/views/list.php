@@ -104,6 +104,9 @@ foreach ($webTable->filters as $filter) {
   			<td>
 				<?php
 				foreach ($webTable->options as $option) {
+					if (!$option->show) {
+						continue;
+					}
 					$show = true;
 					if (isset($option->evaluation)) {
 						$elem = $option->evaluation->param;

@@ -214,6 +214,17 @@ abstract class AbstractFormController extends AbstractController {
 		return true;
 	}
 
+	/**
+	* Methodo que valida si se tiene acceso a una opcion
+	*
+	*/
+	protected final function validateAccess($option) {
+		if (!empty($option)) {
+			return $this->hasAccess($option);
+		}
+		return false;
+	}
+
 }
 
 ?>
