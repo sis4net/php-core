@@ -12,6 +12,7 @@ if (file_exists($config) == true) {
  include_once __LIB_PATH . '/application/' . 'uploadController.php';
  include_once __LIB_PATH . '/application/' . 'jsonController.php';
  include_once __LIB_PATH . '/application/' . 'exportController.php';
+ include_once __LIB_PATH . '/application/' . 'downloadController.php';
 
  /*** include the registry class ***/
  include_once __LIB_PATH . '/application/' . 'registry.class.php';

@@ -100,6 +100,7 @@ class Service implements Config {
 				$app = new Application();
 				$app->id = $opt->app;
 				$app->name = $opt->appName;
+				$app->code = $opt->appCode;
 
 				$appNew = $opt->app;
 			}
@@ -108,6 +109,7 @@ class Service implements Config {
 				$mod = new Module();
 				$mod->id = $opt->module;
 				$mod->name = $opt->modName;
+				$mod->code = $opt->modCode;
 
 				$modNew = $opt->module;
 
