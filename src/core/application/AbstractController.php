@@ -33,7 +33,7 @@ abstract class AbstractController implements Config {
 	*/
 	protected final function getId() {
 		if (!isset($_GET['id'])) {
-			throw new Exception("Parametros ID no seteado.");	
+			throw new Exception("param.id.not.set");	
 		}
 		return $_GET['id'];
 	}
@@ -127,7 +127,7 @@ abstract class AbstractController implements Config {
 						$own = $this->getOwn();
 							
 						if (!$own) {
-							throw new Exception("No posee permiso para esta opcion.");
+							throw new Exception("access.not.own");
 						}
 							
 					} 
@@ -135,13 +135,15 @@ abstract class AbstractController implements Config {
 					if (!$this->isFreeAccess()) {
 						// Validamos Seguridad de Acceso
 						if (!$this->hasAccess($this->getOption())) {
-							throw new Exception("No posee permiso para esta opcion.[P]");
+							// No posee permiso de acceso
+							throw new Exception("access.not.valid");
 						}
 						// Creamos navBar
 						$this->navbar();
 					}
-				} else {					
-					throw new Exception("Debe Ingresar al Sitio.");
+				} else {
+					// Debe Ingresar al Sitio					
+					throw new Exception("timeout");
 				}
 			}
 			// Cargamos Action de Controller
@@ -153,7 +155,7 @@ abstract class AbstractController implements Config {
 		} catch (Exception $e) {
 			$this->logDebug("Ocurrio un error en la Aplicacion no detectado : " + $e->getMessage());
 			error_log("Ocurrio un error en la Aplicacion no detectado : " + $e->getMessage(), 0);
-			$this->registry->template->msg = $e->getMessage();
+			$this->registry->template->msg = 'error.' . $e->getMessage();
 			$controllerName = ".";
 			$action = "error";
 		}
@@ -219,9 +221,11 @@ abstract class AbstractController implements Config {
 			}
 			if (isset($navBar)) {
 				// Verificamos si opcion seleccionada se encuentra en navegacion
-				if (!in_array($option, $navBar)) {
-					// Se guarda opcione 
-					$navBar[] = $option;
+				if (!$this->existOptionNav($option, $navBar)) {
+					// Se guarda opcion
+					$navBar[] = $this->getAppOption($user, $option);
+				} else {
+					$navBar =$this->delOptionNav($option, $navBar);
 				}
 				// Guardamos Nav en Session
 				$user->navBar = $navBar;
@@ -229,6 +233,64 @@ abstract class AbstractController implements Config {
 		} 
 		// Seteamos Nav para ser usada en la Pagina
 		$this->setAttribute("navBar", $navBar);
+	}
+
+	/**
+	* Methodo que verifica si existe option en Nav
+	*/
+	private function existOptionNav($option, $navBar) {
+		// Recorremos Arreglo
+		foreach ($navBar as $nav) {
+			// verificamos si existe
+			if ($nav->code == $option) {
+				return true;
+			}
+		}
+		return false ;
+	}
+
+	/**
+	* Methodo que borra elementos de la navegacion
+	*/
+	private function delOptionNav($option, $navBar) {
+		$exist = false;
+		// Recorremos Arreglo
+		for($i = 0; $i < count($navBar); ++$i) {
+			// Borramos si existe
+			if ($exist) {
+				unset($navBar[$i]);
+				break;
+			}
+			// Obtenemos Objeto Guardado
+			$nav = $navBar[$i];
+			// verificamos si existe
+			if ($nav->code == $option) {
+				$exist = true;
+			}
+		}
+		return $navBar;
+	}
+
+	/**
+	* Methodo que optiene el Objeto de Opciones por el Code
+	*/
+	private function getAppOption($session, $option) {
+		foreach ($session->applications as $app) {
+			foreach ($app->modules as $mod) {
+				foreach ($mod->options as $opt) {
+					if ($opt->code == $option) {
+						return $opt;
+					}
+					if (isset($opt->option)) {
+						foreach ($opt->option as &$optSon) {
+							if ($optSon->code == $option) {
+								return $optSon;
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 
 	/**
@@ -404,7 +466,7 @@ abstract class AbstractController implements Config {
 		$_SESSION[self::site_name] = $obj;
 
 		if ($this->getUserSession() == null) {
-			throw new Exception('No se pudo crear la session');
+			throw new Exception('session.create');
 		}
 	}
 

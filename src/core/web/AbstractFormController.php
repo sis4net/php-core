@@ -64,6 +64,15 @@ abstract class AbstractFormController extends AbstractController {
 		
 		$this->fields[] = $elem;
 	}
+
+	protected final function addFieldDetailValue($name, $key, $value) {
+		
+		$elem = new FieldTable($name,$key);
+		$elem->type = 'hidden';
+		$elem->value = $value;
+		
+		$this->fields[] = $elem;
+	}
 	
 	protected final function addFieldDetailList($name, $key, $list) {
 	
@@ -103,6 +112,98 @@ abstract class AbstractFormController extends AbstractController {
 		$elem->length = $length;
 		$elem->validate = $validate;
 		$elem->list = $list;
+		
+		$this->fields[] = $elem;
+	}
+
+	/**
+	* Methodo para ingresar los campos a pintar en la Pagina
+	*
+	**/
+	protected final function addFieldListShow($name, $key, $type, $length, $validate, $list) {
+		
+		$elem = new FieldTable($name,$key);
+		$elem->type = $type;
+		$elem->length = $length;
+		$elem->validate = $validate;
+		$elem->list = $list;
+		$elem->ajax = true;
+		
+		$this->fields[] = $elem;
+	}
+
+	/**
+	* Methodo para ingresar los campos a pintar en la Pagina
+	*
+	**/
+	protected final function addFieldListAjax($name, $key, $type, $length, $validate, $list, $nameAjax) {
+		
+		$elem = new FieldTable($name,$key);
+		$elem->type = $type;
+		$elem->length = $length;
+		$elem->validate = $validate;
+		$elem->list = $list;
+		$elem->ajax = true;
+		
+		$this->fields[] = $elem;
+
+		// Agregamos Ajax
+		$this->addFieldAjax($nameAjax);
+	}
+
+	/**
+	* Methodo para agregar un input file a la pagina
+	**/
+	protected final function addFieldFile($name, $key, $regex, $validate, $preview, $size) {
+		
+		$elem = new FieldTable($name,$key);
+		$elem->type = 'file';
+		$elem->length = 200;
+		$elem->validate = $validate;
+		$elem->regex = $regex;
+		$elem->preview = $preview;
+		$elem->size = $size * 1000000;
+		
+		$this->fields[] = $elem;
+	}
+
+	/**
+	* Methodo que agrega un listado de Link
+	**/
+	protected final function addFieldListLink($name, $key, $list, $url, $option) {
+		
+		$elem = new FieldTable($name,$key);
+		$elem->type = "linklist";
+		$elem->length = "500px";
+		$elem->list = $list;
+		$elem->url = $url;
+		$elem->show = $this->validateAccess($option);
+		
+		$this->fields[] = $elem;
+	}
+
+	/**
+	* Methodo que agrega un Link
+	**/
+	protected final function addFieldLink($name, $key,  $url, $option) {
+		
+		$elem = new FieldTable($name,$key);
+		$elem->type = "link";
+		$elem->length = "500px";
+		$elem->url = $url;
+		$elem->show = $this->validateAccess($option);
+		
+		$this->fields[] = $elem;
+	}
+
+	/**
+	* Methodo para agregar un label
+	**/
+	protected final function addFieldLabel($name, $key) {
+		
+		$elem = new FieldTable($name,$key);
+		$elem->type = 'label';
+		$elem->length = "500px";
 		
 		$this->fields[] = $elem;
 	}
@@ -168,6 +269,17 @@ abstract class AbstractFormController extends AbstractController {
 	
 	protected final  function isGloba() {
 		return true;
+	}
+
+	/**
+	* Methodo que valida si se tiene acceso a una opcion
+	*
+	*/
+	protected final function validateAccess($option) {
+		if (!empty($option)) {
+			return $this->hasAccess($option);
+		}
+		return false;
 	}
 
 }

@@ -81,12 +81,93 @@ class Service implements Config {
 	}
 
 	/**
+	* Methodo que agrupa un listado de opciones en App - Module - Opt - Hijas
+	*
+	*/
+	protected function groupOption($opts) {
+		$list = array();
+
+		$appNew = null;
+		$modNew = null;
+		$optNew = null;
+
+		foreach ($opts as &$opt) {
+			if ($appNew !=  $opt->app) {
+				if (isset($app)) {
+					$list[] = $app;
+				}
+
+				$app = new Application();
+				$app->id = $opt->app;
+				$app->name = $opt->appName;
+				$app->code = $opt->appCode;
+
+				$appNew = $opt->app;
+			}
+
+			if ($modNew !=  $opt->module) {
+				$mod = new Module();
+				$mod->id = $opt->module;
+				$mod->name = $opt->modName;
+				$mod->code = $opt->modCode;
+
+				$modNew = $opt->module;
+
+				$app->modules[] = $mod;
+			}
+
+			if (isset($optNew) && $optNew == $opt->father) {
+				$optionSon = new Option();
+				$optionSon->id = $opt->id;
+				$optionSon->name = $opt->optName;				
+				if (isset($opt->selected)) {
+					$optionSon->check = $opt->selected;
+				}
+				if (isset($opt->url)) {
+					$optionSon->url = $opt->url;
+				}
+				if (isset($opt->optCode)) {
+					$optionSon->code = $opt->optCode;
+				}
+
+				$option->option[] = $optionSon;
+				continue;
+			}
+
+			if ($optNew !=  $opt->opt) {
+				$option = new Option();
+				$option->id = $opt->id;
+				$option->name = $opt->optName;
+				if (isset($opt->selected)) {
+					$option->check = $opt->selected;
+				}
+				if (isset($opt->url)) {
+					$option->url = $opt->url;
+				}
+				if (isset($opt->optCode)) {
+					$option->code = $opt->optCode;
+				}
+
+				$optNew = $opt->opt;
+
+				$mod->options[] = $option;	
+			}		
+		}
+
+		if (isset($app)) {
+			$list[] = $app;
+		}
+
+		return $list;
+	}
+
+	/**
 	 * Methodos por Defecto de los Servicios
 	 *
 	 */
 	
-	public function listPaginated($init, $size) {
-		return $this->dao->listPaginated($init, $size);
+	public function listPaginated($init, $size, $filter) {
+		return $this->dao->listPaginated($init, $size, $filter);
 	}
 	
 	public function listAll() {

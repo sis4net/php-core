@@ -15,6 +15,8 @@ abstract class AbstractListController extends AbstractFormController {
 		$this->filters = null;
 		
 		try {
+			// COnfiguramos Filtro
+			$this->setFilters();
 			// Pintamos Listado Paginado
 			$webTable = $this->setList();
 			// Ejecutamos Logica
@@ -26,7 +28,6 @@ abstract class AbstractListController extends AbstractFormController {
 			
 			
 			// Cargamos Data
-			$this->setFilters();
 			$this->setColumns();
 			$this->setOptions();
 			
@@ -97,22 +98,22 @@ abstract class AbstractListController extends AbstractFormController {
 		$this->columns[] = new FieldTable($name,$key);
 	}
 	
-	protected final function addOptions($name, $url, $icon) {
-		$this->options[] = new UrlOption($name, $url, $icon, false);
+	protected final function addOptions($option, $name, $url, $icon) {
+		$this->options[] = new UrlOption($this->validateAccess($option), $name, $url, $icon, false);
 	}
 
-	protected final function addOptionsEvaluation($name, $url, $icon, Evaluation $evaluation) {
-		$dialog = new UrlOption($name, $url, $icon, false);
+	protected final function addOptionsEvaluation($option, $name, $url, $icon, Evaluation $evaluation) {
+		$dialog = new UrlOption($this->validateAccess($option), $name, $url, $icon, false);
 		$dialog->evaluation = $evaluation;
 		$this->options[] = $dialog;
 	}
 	
-	protected final function addDialogs($name, $url, $icon) {
-		$this->options[] = new UrlOption($name, $url, $icon, true);
+	protected final function addDialogs($option, $name, $url, $icon) {
+		$this->options[] = new UrlOption($this->validateAccess($option), $name, $url, $icon, true);
 	}
 
-	protected final function addDialogsEvaluation($name, $url, $icon, Evaluation $evaluation) {
-		$dialog = new UrlOption($name, $url, $icon, true);
+	protected final function addDialogsEvaluation($option, $name, $url, $icon, Evaluation $evaluation) {
+		$dialog = new UrlOption($this->validateAccess($option), $name, $url, $icon, true);
 		$dialog->evaluation = $evaluation;
 		$this->options[] = $dialog;
 	}
@@ -128,7 +129,7 @@ abstract class AbstractListController extends AbstractFormController {
 		$total = 0;
 		$list = null;
 		// Pagina
-		$size = 10;
+		$size = 20;
 		$page = 1;
 		if (isset($_GET['page'])) {
 			$page = $_GET['page'];
@@ -140,6 +141,8 @@ abstract class AbstractListController extends AbstractFormController {
 		if ($page > 1) {
 			$init = $end - $size;
 		}
+		// Obtenemos Data de Filtros
+		$dataFilter = $this->getFilterData();
 		// Verificamos si es custom
 		if ($this->listCustom()) {
 			$list = $this->setListCustom($init, $size);
@@ -150,7 +153,7 @@ abstract class AbstractListController extends AbstractFormController {
 			// Obtenemos el Total de Registros
 			$total = count($this->getService($service)->listAll());
 			// Obtenemos el Paginado
-			$list = $this->getService($service)->listPaginated($init, $size);
+			$list = $this->getService($service)->listPaginated($init, $size, $dataFilter);
 		}
 		$webTable->list = $list;
 		// Paginacion		
@@ -159,6 +162,32 @@ abstract class AbstractListController extends AbstractFormController {
 		$webTable->pages = ceil($total / $size);
 		
 		return $webTable;
+	}
+
+	/**
+	* Methodo que obtiene los Valores de los Filtros configurados
+	*/
+	private function getFilterData() {
+		$filtros = $this->filters;
+
+		$data = array();
+		// Verificamos si existen filtros configurados
+		if (isset($this->filters)) {
+			// Recorremos los filtros
+			foreach ($this->filters as $filter) {
+				// Verificamos si se envio data
+				if (isset($_POST[$filter->name])) {
+					// Obtenemos Valor
+					$value = $_POST[$filter->name];
+					if (!empty($value)) {
+						// Guardamos en Arreglo
+						$data[$filter->name] = $value;	
+					}
+				}
+			}
+		}
+
+		return $data;
 	}
 
 	/**

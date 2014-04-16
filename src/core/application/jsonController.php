@@ -2,15 +2,41 @@
 
 abstract class JsonController extends AbstractController {
 	
-	public function action() {
+	public final function action() {
 		$action = "json";
 		$msg = " ";
 		// Ejecutamos Logica
 		$msg =  $this->jsonAction();
+		// COnvertimos respuesta en json
+		$json = $this->json_encode($msg);
 		// Se setea mSg a Mostrar en Pagina
-		$this->setAttribute('msg', $msg);
+		$this->setAttribute('msg', $json);
 		
 		return $action;
+	}
+
+	/**
+	* Methodo que convierte Array o Objetc a Json
+	*
+	*/
+	private function json_encode($object) {
+		$json = '{';
+
+		if (is_array($object)) {
+			$count = 0;
+			foreach ($object as &$elem) {
+				if ($count > 0) {
+					$json .= ',';
+				}
+				$json .= '"'.$elem->id.'":"'.$elem->name.'"';
+				$count++;
+			}
+		} else if (is_object($object)) {
+			$json .= '"'.$object->id.'":"'.$object->name.'"';
+		}
+		$json .= '}';
+
+		return $json;
 	}
 	
 	/**
@@ -18,11 +44,11 @@ abstract class JsonController extends AbstractController {
 	 */
 	protected abstract function jsonAction();
 	
-	protected function isModal() {
+	protected final function isModal() {
 		return true;
 	}
 	
-	protected  function isGloba() {
+	protected final  function isGloba() {
 		return true;
 	}
 	

@@ -10,6 +10,8 @@ abstract class EditListController extends AbstractListController {
 		return true;
 	}
 
+	protected function setFilters() {}
+
 }
 
 ?>

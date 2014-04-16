@@ -30,7 +30,7 @@ abstract class uploadController extends CrudController {
 				// Creamos directorio si no existe
 				$estructura = $destination_path . $dir;
 				if (!is_dir($estructura)) {
-					if(!mkdir($estructura, 0777))
+					if(!mkdir($estructura, 0777, true))
 					{
 						throw new Exception("Ocurrio un Error al Generar el Directorio");
 					}
@@ -46,6 +46,13 @@ abstract class uploadController extends CrudController {
 				} else {
 					$file = $dir . basename( $_FILES[$input]["name"]);
 					$file_path = $destination_path . $file;
+				}
+
+				if ($this->deleteFile()) {
+					if (file_exists($file_path)) {
+						// Borramos Archivo
+						unlink($file_path);
+					}
 				}
 				
 				if (!file_exists($file_path)) {
@@ -66,11 +73,27 @@ abstract class uploadController extends CrudController {
 			throw new Exception($e->getMessage());
 		}
 	}
+
+	/**
+	* Methodo para borra archivo subido si existe
+	**/
+	protected function deleteFile() {
+		return false;
+	}
 	
+	/**
+	* Methodo para implementar las validaciones los tipos de datos permitidos
+	**/
 	protected abstract function validateType($type);
 	
+	/**
+	* Mehodo para setar el Nombre del imput file
+	*/
 	protected abstract function getInput();
 	
+	/**
+	* Mehodo para definir la ruta de subida del archivo
+	**/
 	protected abstract function getPathUpload();
 	
 	/**

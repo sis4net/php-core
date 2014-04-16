@@ -12,7 +12,12 @@ class UserSession {
 	public $email;
 	public $profile;
 	public $type;
-	
+
+	/**
+	* Datos compañia
+	*/
+	public $company;
+	public $companyName;
 	/**
 	* Optiones habiliatadas por el Perfil
 	*/

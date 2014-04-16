@@ -14,6 +14,8 @@ abstract class AddListController extends AbstractListController {
 		return true;
 	}
 
+	protected function setFilters() {}
+
 }
 
 ?>
