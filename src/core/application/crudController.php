@@ -10,6 +10,12 @@ abstract class CrudController extends AbstractController {
 			$this->crudAction();
 			
 			$msg = $this->getMsg();
+
+			// Verificamos si existe redireccion
+			$redirect = $this->redirectUrl();
+			if (isset($redirect)) {
+				$this->setAttribute('redirect',$redirect);
+			}
 			
 		} catch (Exception $e) {
 			error_log("Ocurrio un error al hacer el Crud: " + $e->getMessage(), 0);
@@ -48,6 +54,14 @@ abstract class CrudController extends AbstractController {
 	*/
 	protected final function isGloba() {
 		return true;
+	}
+
+	/**
+	* Methodo para redireccionar despues del mensaje de exito
+	*
+	*/
+	protected function redirectUrl() {
+		return null;
 	}
 	
 }

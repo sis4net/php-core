@@ -33,14 +33,18 @@ class Service implements Config {
 	 * @param unknown_type $email
 	 * @param unknown_type $message
 	 */
-	protected function sendMail($email, $message) {
+	protected function sendMail($email, $message, $subject) {
 		if (self::sendMail_cliente) {
 			$contact = $email;
-			$subject = self::title_mail;
+
+			if (empty($subject)) {
+				$subject = self::title_mail;
+			}
 	
 			$cabeceras = 'From: '. self::mail_to . "\r\n" .
 					'Reply-To: ' . self::mail_to  . "\r\n" .
-                      			'Content-type: text/html'."\r\n" .
+                    "MIME-Version: 1.0 \r\n" .
+                    "Content-Type: text/html; charset=UTF-8 \r\n" .
 					'X-Mailer: PHP/' . phpversion();
 	
 			mail($contact, $subject, $message, $cabeceras);

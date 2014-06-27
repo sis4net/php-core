@@ -33,7 +33,7 @@ abstract class AbstractController implements Config {
 	*/
 	protected final function getId() {
 		if (!isset($_GET['id'])) {
-			throw new Exception("Parametros ID no seteado.");	
+			throw new Exception("param.id.not.set");	
 		}
 		return $_GET['id'];
 	}
@@ -127,7 +127,7 @@ abstract class AbstractController implements Config {
 						$own = $this->getOwn();
 							
 						if (!$own) {
-							throw new Exception("No posee permiso para esta opcion.");
+							throw new Exception("access.not.own");
 						}
 							
 					} 
@@ -135,13 +135,15 @@ abstract class AbstractController implements Config {
 					if (!$this->isFreeAccess()) {
 						// Validamos Seguridad de Acceso
 						if (!$this->hasAccess($this->getOption())) {
-							throw new Exception("No posee permiso para esta opcion.[P]");
+							// No posee permiso de acceso
+							throw new Exception("access.not.valid");
 						}
 						// Creamos navBar
 						$this->navbar();
 					}
-				} else {					
-					throw new Exception("Debe Ingresar al Sitio.");
+				} else {
+					// Debe Ingresar al Sitio					
+					throw new Exception("timeout");
 				}
 			}
 			// Cargamos Action de Controller
@@ -153,7 +155,7 @@ abstract class AbstractController implements Config {
 		} catch (Exception $e) {
 			$this->logDebug("Ocurrio un error en la Aplicacion no detectado : " + $e->getMessage());
 			error_log("Ocurrio un error en la Aplicacion no detectado : " + $e->getMessage(), 0);
-			$this->registry->template->msg = $e->getMessage();
+			$this->registry->template->msg = 'error.' . $e->getMessage();
 			$controllerName = ".";
 			$action = "error";
 		}
@@ -464,7 +466,7 @@ abstract class AbstractController implements Config {
 		$_SESSION[self::site_name] = $obj;
 
 		if ($this->getUserSession() == null) {
-			throw new Exception('No se pudo crear la session');
+			throw new Exception('session.create');
 		}
 	}
 
