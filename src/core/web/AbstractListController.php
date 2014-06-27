@@ -129,7 +129,7 @@ abstract class AbstractListController extends AbstractFormController {
 		$total = 0;
 		$list = null;
 		// Pagina
-		$size = 10;
+		$size = 20;
 		$page = 1;
 		if (isset($_GET['page'])) {
 			$page = $_GET['page'];
