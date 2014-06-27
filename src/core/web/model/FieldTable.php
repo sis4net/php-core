@@ -17,6 +17,7 @@ class FieldTable {
 	public $size;
 	public $url;
 	public $show = true;
+	public $evaluation = null;
 	
 	function __construct($name, $key) {
 		$this->name = $name;
