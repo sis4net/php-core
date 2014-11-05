@@ -6,11 +6,18 @@ abstract class CrudController extends AbstractController {
 		$action = "success";
 		$msg = " ";
 		try {
+			
+			// Verificamos si existe redireccion
+			$redirect = $this->redirectUrl();
+			if (isset($redirect)) {
+				$this->setAttribute('redirect',$redirect);
+			}
+
 			// Ejecutamos Logica
 			$this->crudAction();
 			
 			$msg = $this->getMsg();
-
+			
 			// Verificamos si existe redireccion
 			$redirect = $this->redirectUrl();
 			if (isset($redirect)) {
