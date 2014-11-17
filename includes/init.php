@@ -38,6 +38,7 @@ if (file_exists($config) == true) {
   include_once __LIB_PATH . '/web/' . 'DetailListController.php';
   include_once __LIB_PATH . '/web/' . 'AddListController.php';
   include_once __LIB_PATH . '/web/' . 'EditListController.php';
+  include_once __LIB_PATH . '/web/' . 'AddDetailListController.php';
 
 /* Classes */
 // Servicios
