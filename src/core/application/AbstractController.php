@@ -98,32 +98,24 @@ abstract class AbstractController implements Config {
 	 * @throws Exception
 	 */
 	public final function index($controllerName) {
-		$this->logDebug('Iniciamos Index');
 		$controller = false;
 		try {
 			// Seteamos Todas las COnfiguraciones Iniciales
-			$this->logDebug('Seteamos Todas las Configuraciones Iniciales');
 			$this->init();
 
 			// Entregamos Session al Sitio
-			$this->logDebug('Entregamos Session al Sitio');
 			$this->registry->template->sessionSite = $this->getSessionSite();
 
 			$error = false;
-			$this->logDebug('Verificamos si necesita Acceso');
 			// Verificamos si necesita Acceso
 			if ($this->accessControl()) {
-				$this->logDebug('Verificamos si esta Logeado');
 				// Verificamos si esta Logeado
 				if ($this->isLogin()) {
-					$this->logDebug('Verificamos si es Dueños y Administrador');
 					// Verificamos si es Dueños y Administrador
 					if ($this->isOwn()) {
 						// Guardamos Data para validar si es dueño
-						$this->logDebug('Guardamos Data para validar si es dueño');
 						$this->setOwnData();
 						// Validamos si el Dueño
-						$this->logDebug('Validamos si el Dueño');
 						$own = $this->getOwn();
 							
 						if (!$own) {
@@ -160,25 +152,19 @@ abstract class AbstractController implements Config {
 			$action = "error";
 		}
 		
-		$this->logDebug('Verificamos si es Global');
 		if ($this->isGloba()) {
 			$this->logDebug('es Global');
 			$controllerName = ".";
 		}
 		
-		$this->logDebug('Verificamos si es una respuesta de controlador');
 		// Verificamos si es una respuesta de controlador
 		if (strstr($action, '->') != '') {
-			$this->logDebug('es Controlador');
 			$controller = true;
 			$action =  substr(strstr($action, '->'),2);
 		}
 		
-		$this->logDebug('Verificamos si se debe exportar');
 		// Verificamos si se debe exportar
-		if ($this->export()) {
-			$this->logDebug('Si se debe exportar');
-			
+		if ($this->export()) {			
 			header("Content-type: application/vnd.ms-excel; name='excel'");
 			header("Content-Disposition: filename=".$controllerName.".xls");
 			header("Pragma: no-cache");
@@ -186,10 +172,8 @@ abstract class AbstractController implements Config {
 		}
 
 		if (!$controller) {
-			$this->logDebug('Cargamos la Pagina');
 			$this->registry->template->show($controllerName, $action, $this->isModal());
 		} else {
-			$this->logDebug('Ejecutamos el controller (controller->[name])');
 			// Ejecutamos el controller (controller->[name])
 			$host  = $_SERVER['HTTP_HOST'];
 			$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
