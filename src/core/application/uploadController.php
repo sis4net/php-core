@@ -16,12 +16,12 @@ abstract class uploadController extends CrudController {
 			
 			if ($_FILES[$input]["error"]) {
 				if ($_FILES[$input]["error"] == $this->UPLOAD_ERR_INI_SIZE || $_FILES[$input]["error"] == $this->UPLOAD_ERR_FORM_SIZE) {
-					throw new Exception("Archivo Excede Tamaño Maximo Permitido (".$_FILES[$input]["error"].")");
+					throw new Exception("file.exed.tam");
 				} else if ($_FILES[$input]["error"] != $this->UPLOAD_ERR_NO_FILE) {
-					throw new Exception("Ocurrio un error al Subir el Archivo " . $_FILES[$input]["error"] );
+					throw new Exception("file.upload");
 				}
 			} else if (!$this->validateType($_FILES[$input]["type"])) {
-				throw new Exception("Tipo de Archivo Invalido ");
+				throw new Exception("file.type.invalid");
 			} else {
 				$dir = $this->getPathUpload();
 				// Procesamos Data Subida
@@ -32,7 +32,7 @@ abstract class uploadController extends CrudController {
 				if (!is_dir($estructura)) {
 					if(!mkdir($estructura, 0777, true))
 					{
-						throw new Exception("Ocurrio un Error al Generar el Directorio");
+						throw new Exception("file.upload.mkdir");
 					}
 				}
 				
@@ -61,7 +61,7 @@ abstract class uploadController extends CrudController {
 					
 					$result = 1;
 				} else {
-					throw new Exception("Archivo Ya Existe, ingrese una nueva o use otro nombre de archivo");
+					throw new Exception("file.upload.exist");
 				}
 			}
 			
