@@ -66,7 +66,7 @@ abstract class uploadController extends CrudController {
 			}
 			
 			// Ejecutamos Logica
-			$this->uploadAction($file);
+			$this->uploadAction($file, $file_path);
 			
 		} catch (Exception $e) {
 			error_log("Ocurrio un error al hacer el Crud: " + $e->getMessage(), 0);
@@ -99,7 +99,7 @@ abstract class uploadController extends CrudController {
 	/**
 	 * @all controllers que ejecuta Crud
 	 */
-	protected abstract function uploadAction($file);
+	protected abstract function uploadAction($file, $file_path);
 	
 	/**
 	 * Methodo para Reemplazar el nombre del archivo subido, por uno custom
