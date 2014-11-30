@@ -9,10 +9,12 @@ class Manager extends Connector
 		
 		$class = $service . 'Service';
 		
+		// Obtenemos el Factory
+
 		// Obtenemos Conexion a BD
-		$db = $this->connect();		
+		$factoryDB = $this->getFactory();		
 		
-		$this->service = new $class($db);
+		$this->service = new $class($factoryDB);
 		// Cargamos los DAOs
 		$this->service->getDAO($service);
 		

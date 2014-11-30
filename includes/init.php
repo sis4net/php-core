@@ -46,6 +46,9 @@ include_once (__LIB_PATH  .'/service/Service.php');
 
 // DAOs
 include_once (__LIB_PATH  .'/dao/DAO.php');
+include_once (__LIB_PATH  .'/dao/FactoryDAO.php');
+include_once (__LIB_PATH  .'/dao/MysqlDAO.php');
+include_once (__LIB_PATH  .'/dao/PostgresqlDAO.php');
 
 // Model
 include_once (__LIB_PATH  .'/model/Object.php');

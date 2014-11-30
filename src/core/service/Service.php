@@ -7,12 +7,12 @@
  */
 class Service implements Config {
 
-	private $db = NULL;
+	private $factoryDB = NULL;
 
 	private $dao;
 
-	public function __construct($db) {
-		$this->db = $db;
+	public function __construct($factoryDB) {
+		$this->factoryDB = $factoryDB;
 	}
 
 	public function getDAO($dao) {
@@ -20,7 +20,7 @@ class Service implements Config {
 		$class = $dao . 'DAO';
 
 
-		$this->dao = new $class($this->db);
+		$this->dao = new $class($this->factoryDB);
 
 		//$this->close($db);
 

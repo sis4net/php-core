@@ -5,19 +5,9 @@
 
 class Connector implements Config {
 	
-	protected function connect() {
-	  	$mysqli = new mysqli(self::db_ip, self::db_user, self::db_pass, self::db_name);
-	  	
-	  	if ($mysqli->connect_errno) {
-    		die("Fallo al contenctar a MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error);
-		}		
-		
-		return $mysqli;
+	protected function getFactory() {			
+		return $factoryDB = FactoryDAO::build(self::db_ip, self::db_user, self::db_pass, self::db_name, self::db_type);
 	}	
-	
-	protected function close($db) {
-		mysql_close($db);		
-	}
 	
 }
 

@@ -7,20 +7,14 @@
  */
 class DAO {
 
-	private $db = NULL;
+	private $factoryDB = NULL;
 
-	public function __construct($db) {
-		$this->db = $db;
+	public function __construct($factoryDB) {
+		$this->factoryDB = $factoryDB;
 	}
 
 	protected function real_escape_string($val) {
-		return mysqli_real_escape_string($this->db, $val);
-	}
-
-	private function isError($result) {
-		if (!$result) {
-			throw new Exception($this->db->error);
-		}
+		return $this->factoryDB->real_escape_string($val);
 	}
 
 	/**
@@ -29,13 +23,7 @@ class DAO {
 	 * @throws Exception
 	 */
 	protected function listDataPaginated($sql, $init, $size) {
-		$sql .= " LIMIT %s, %s";
-	
-		$query =  sprintf($sql,
-				$this->real_escape_string($init),
-				$this->real_escape_string($size));
-
-		return $this->listData($query);
+		return $this->factoryDB->listDataPaginated($sql, $init, $size);
 	}
 
 	/**
@@ -44,19 +32,7 @@ class DAO {
 	 * @throws Exception
 	 */
 	protected function listData($query) {
-		$result = $this->db->query($query);
-
-		$this->isError($result);
-
-		$list = array();
-
-		while ($row = mysqli_fetch_object($result, 'Object')) {
-			$list[] = $row;
-		}
-
-		mysqli_free_result($result);
-
-		return $list;
+		return $this->factoryDB->listData($query);
 	}
 
 	/**
@@ -66,9 +42,7 @@ class DAO {
 	 * @return boolean
 	 */
 	protected function executeData($query) {
-		$result = $this->db->query($query);
-		$this->isError($result);
-		return true;
+		return $this->factoryDB->executeData($query);
 	}
 
 	/**
@@ -77,9 +51,7 @@ class DAO {
 	 * @throws Exception
 	 */
 	protected function addData($query) {
-		$result = $this->db->query($query);
-		$this->isError($result);
-		return $this->db->insert_id;
+		return $this->factoryDB->addData($query);
 	}
 
 	/**
@@ -89,12 +61,7 @@ class DAO {
 	 * @throws Exception
 	 */
 	protected function countData($query) {
-		$result = $this->db->prepare($query);
-		$result->execute();
-		$result->store_result();
-		$num_of_rows = $result->num_rows;
-		$this->isError($result);
-		return $num_of_rows;
+		return $this->factoryDB->countData($query);
 	}
 
 	/**
@@ -102,13 +69,7 @@ class DAO {
 	 * @param unknown_type $query
 	 */
 	protected function existData($query) {
-		$num_rows = $this->countData($query);
-		
-		if ($num_rows > 0) {
-			return true;
-		}
-
-		return false;
+		return $this->factoryDB->existData($query);
 	}
 
 	/**
@@ -116,9 +77,7 @@ class DAO {
 	 * @param unknown_type $query
 	 */
 	protected function loadData($query) {
-		$result = $this->db->query($query);
-
-		return mysqli_fetch_object($result, 'Object');
+		return $this->factoryDB->loadData($query);
 	}
 
 }
