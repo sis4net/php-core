@@ -44,7 +44,7 @@ class PostgresqlDAO {
 	 * @throws Exception
 	 */
 	public function listDataPaginated($sql, $init, $size) {
-		$sql .= " LIMIT %s, %s";
+		$sql .= " LIMIT %s OFFSET %s";
 	
 		$query =  sprintf($sql,
 				$this->real_escape_string($init),
