@@ -15,12 +15,12 @@ class PostgresqlDAO {
 	}
 
 	private function connect($dbIp, $dbUser, $dbPass, $dbName) {
-	  	$dbconn = pg_connect('host=$dbIp dbname=$dbName user=$dbUser password=$dbPass');
-	  	
-	  	if ($dbconn) {
-    		die("Fallo al contenctar a POSTGRESQL: (" . pg_last_error() . ") ");
-		}		
+	  	$dbconn = pg_connect("host=$dbIp port=5432 dbname=$dbName user=$dbUser password=$dbPass");
 		
+	  	if (!$dbconn) {
+		  die("Fallo al contectar a POSTGRESQL: (" . pg_last_error() . ") ");
+		}
+
 		return $dbconn;
 	}	
 	
@@ -29,12 +29,12 @@ class PostgresqlDAO {
 	}
 
 	public function real_escape_string($val) {
-		return mysqli_real_escape_string($this->db, $val);
+		return pg_escape_string($this->db, $val);
 	}
 
 	private function isError($result) {
 		if (!$result) {
-			throw new Exception($this->db->error);
+			throw new Exception(pg_last_error());
 		}
 	}
 
@@ -59,7 +59,7 @@ class PostgresqlDAO {
 	 * @throws Exception
 	 */
 	public function listData($query) {
-		$result = $this->db->query($query);
+		$result = pg_query($this->db, $query);
 
 		$this->isError($result);
 
@@ -81,7 +81,7 @@ class PostgresqlDAO {
 	 * @return boolean
 	 */
 	public function executeData($query) {
-		$result = $this->db->query($query);
+		$result = pg_query($this->db, $query);
 		$this->isError($result);
 		return true;
 	}
@@ -92,7 +92,7 @@ class PostgresqlDAO {
 	 * @throws Exception
 	 */
 	public function addData($query) {
-		$result = $this->db->query($query);
+		$result = pg_query($this->db, $query);
 		$this->isError($result);
 		return $this->db->insert_id;
 	}
@@ -104,11 +104,12 @@ class PostgresqlDAO {
 	 * @throws Exception
 	 */
 	public function countData($query) {
-		$result = $this->db->prepare($query);
-		$result->execute();
-		$result->store_result();
-		$num_of_rows = $result->num_rows;
+		$result = pg_query($this->db, $query);
+
 		$this->isError($result);
+
+		$num_of_rows = pg_num_rows($result);
+
 		return $num_of_rows;
 	}
 
@@ -131,7 +132,7 @@ class PostgresqlDAO {
 	 * @param unknown_type $query
 	 */
 	public function loadData($query) {
-		$result = $this->db->query($query);
+		$result = pg_query($this->db, $query);
 
 		return pg_fetch_object($result, 'Object');
 	}
