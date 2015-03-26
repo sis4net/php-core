@@ -172,7 +172,7 @@ abstract class AbstractController implements Config {
 		}
 
 		if (!$controller) {
-			$this->registry->template->show($controllerName, $action, $this->isModal());
+			$this->registry->template->show($controllerName, $action, $this->isCustomer(), $this->isModal());
 		} else {
 			// Ejecutamos el controller (controller->[name])
 			$host  = $_SERVER['HTTP_HOST'];
@@ -341,6 +341,14 @@ abstract class AbstractController implements Config {
 	 * Methodo para saber si una pagina es Modal
 	 */
 	protected function isModal() {
+		return false;
+	}
+
+	/**
+	* Methodo que define si se utiliza la pagina customer como Body para 
+	* cargar los contenidos de los controlleer
+	*/
+	protected function isCustomer() {
 		return false;
 	}
 

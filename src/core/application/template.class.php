@@ -46,9 +46,10 @@ class Template {
 	 }
 
 
-	function show($controller, $name, $isModal) {
+	function show($controller, $name, $isCustomer, $isModal) {
 		// Definimos el Container
 		$container = __SITE_PATH.'/views/container/container.php';
+		$customer = __SITE_PATH.'/views/container/customer.php';
 		// Definimos la Pagina a Cargar
 		if ($controller == '.') {
 			$path = __SITE_PATH . '/views/'.  $name . '.php';
@@ -66,6 +67,14 @@ class Template {
 		foreach ($this->vars as $key => $value)
 		{
 			$$key = $value;
+		}
+
+		// Verificamos si es customer
+		if ($isCustomer) {
+			// Agregamos la pagina custom
+			$custom = $path;
+			// Agregamos la pagina customer como Body
+			$path = $customer;
 		}
 		
 		if (!$isModal) {

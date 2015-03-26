@@ -18,6 +18,7 @@ class FieldTable {
 	public $url;
 	public $show = true;
 	public $evaluation = null;
+	public $checked = false;
 	
 	function __construct($name, $key) {
 		$this->name = $name;
